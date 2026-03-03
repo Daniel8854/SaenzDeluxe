@@ -1,802 +1,871 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiservicios JCD - Servicios Profesionales</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Saenz Deluxe — Diseño</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;700&display=swap" rel="stylesheet"/>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
-            --azul:        #1a3a6b;
-            --azul-oscuro: #0a1f44;
-            --azul-medio:  #2d5fa8;
-            --azul-claro:  #e8eef7;
-            --blanco:      #ffffff;
-            --gris-claro:  #f5f7fb;
-            --gris-texto:  #555e70;
-            --negro:       #0d1b2e;
+          --purple-deep:    #1a0a2e;
+          --purple-mid:     #3d1a6e;
+          --purple-bright:  #7b2fff;
+          --purple-soft:    #b47fff;
+          --gold:           #c9a84c;
+          --gold-light:     #e8d5a3;
+          --black:          #080810;
+          --white:          #f5f0ff;
+          --gray:           #a89fc0;
         }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Lato', sans-serif;
-            background: var(--blanco);
-            color: var(--negro);
-            line-height: 1.7;
+          background: var(--black);
+          color: var(--white);
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 300;
+          overflow-x: hidden;
+          cursor: none;
         }
 
-        /* ── NAVBAR ── */
-        .navbar {
-            background: var(--azul-oscuro);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 0 30px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        /* ── CURSOR ── */
+        .cursor {
+          width: 10px; height: 10px;
+          background: var(--purple-bright);
+          border-radius: 50%;
+          position: fixed; top: 0; left: 0;
+          pointer-events: none; z-index: 9999;
+          transition: transform 0.15s ease, background 0.2s;
+          mix-blend-mode: difference;
+        }
+        .cursor-ring {
+          width: 38px; height: 38px;
+          border: 1px solid var(--gold);
+          border-radius: 50%;
+          position: fixed; top: 0; left: 0;
+          pointer-events: none; z-index: 9998;
+          transition: transform 0.35s ease;
+          opacity: 0.7;
         }
 
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
+        /* ── NOISE OVERLAY ── */
+        body::before {
+          content: '';
+          position: fixed; inset: 0;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+          pointer-events: none; z-index: 9000; opacity: 0.35;
         }
 
-        .logo {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 900;
-            font-size: 1.5rem;
-            color: var(--blanco);
+        /* ── NAV ── */
+        nav {
+          position: fixed; top: 0; left: 0; right: 0;
+          display: flex; align-items: center; justify-content: space-between;
+          padding: 28px 60px;
+          z-index: 100;
+          background: linear-gradient(to bottom, rgba(8,8,16,0.9) 0%, transparent 100%);
+          backdrop-filter: blur(2px);
         }
-
-        .logo span { color: #7aaee8; }
-
-        .nav-menu { display: flex; list-style: none; gap: 35px; }
-
-        .nav-menu a {
-            color: rgba(255,255,255,0.75);
-            text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-            position: relative;
-            padding-bottom: 4px;
+        .nav-logo {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.5rem;
+          font-weight: 600;
+          letter-spacing: 0.15em;
+          color: var(--white);
+          text-decoration: none;
         }
-
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 2px;
-            background: #7aaee8;
-            transition: width 0.3s;
+        .nav-logo span { color: var(--gold); }
+        .nav-links {
+          display: flex; gap: 40px; list-style: none;
         }
-
-        .nav-menu a:hover { color: var(--blanco); }
-        .nav-menu a:hover::after { width: 100%; }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 5px;
+        .nav-links a {
+          font-size: 0.7rem;
+          letter-spacing: 0.25em;
+          text-transform: uppercase;
+          color: var(--gray);
+          text-decoration: none;
+          transition: color 0.3s;
         }
-
-        .hamburger span {
-            display: block;
-            width: 25px; height: 3px;
-            background: var(--blanco);
-            border-radius: 3px;
-            transition: all 0.3s;
-        }
-
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+        .nav-links a:hover { color: var(--gold); }
 
         /* ── HERO ── */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul) 60%, var(--azul-medio) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+        #hero {
+          min-height: 100vh;
+          display: flex; flex-direction: column;
+          justify-content: center; align-items: flex-start;
+          padding: 0 60px;
+          position: relative;
+          overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        /* BG glow */
+        #hero::after {
+          content: '';
+          position: absolute;
+          width: 700px; height: 700px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(123,47,255,0.25) 0%, transparent 70%);
+          top: 50%; left: 55%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+          animation: pulse 6s ease-in-out infinite;
         }
-
-        /* Iconos flotantes */
-        .floating-icons {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .floating-icons span {
-            position: absolute;
-            pointer-events: none;
-        }
-
-        @keyframes floatUp {
-            0%   { transform: translateY(0) rotate(0deg);      opacity: 0; }
-            8%   { opacity: 0.18; }
-            90%  { opacity: 0.12; }
-            100% { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            padding: 0 20px;
-            animation: fadeUp 0.8s ease both;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(255,255,255,0.12);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 6px 18px;
-            border-radius: 50px;
-            margin-bottom: 25px;
-        }
-
-        .hero-content h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            font-weight: 900;
-            color: white;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-
-        .hero-content p {
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            color: rgba(255,255,255,0.85);
-            margin-bottom: 40px;
-            max-width: 550px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 36px;
-            background: var(--blanco);
-            color: var(--azul-oscuro);
-            text-decoration: none;
-            border-radius: 50px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.25);
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.35); }
-
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 36px;
-            background: transparent;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            border: 2px solid rgba(255,255,255,0.6);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 0.95rem;
-            transition: all 0.3s;
-        }
-
-        .btn-secondary:hover { background: rgba(255,255,255,0.12); border-color: white; }
-
-        /* ── STATS ── */
-        .stats-bar { background: var(--negro); padding: 30px; }
-
-        .stats-inner {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .stat { text-align: center; }
-
-        .stat-num {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: #7aaee8;
-        }
-
-        .stat-label {
-            color: rgba(255,255,255,0.55);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ── ABOUT ── */
-        .about { padding: 100px 30px; background: var(--gris-claro); }
-
-        .container { max-width: 1200px; margin: 0 auto; }
-
-        .section-header { text-align: center; margin-bottom: 60px; }
-
-        .section-tag {
-            display: inline-block;
-            background: var(--azul-medio);
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 5px 16px;
-            border-radius: 50px;
-            margin-bottom: 15px;
-        }
-
-        .section-header h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 900;
-            color: var(--negro);
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .about-text p {
-            font-size: 1.1rem;
-            color: var(--gris-texto);
-            margin-bottom: 20px;
-            line-height: 1.85;
-        }
-
-        .about-features { display: flex; flex-direction: column; gap: 15px; }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            color: var(--negro);
-        }
-
-        .feature-item i { color: var(--azul-medio); font-size: 1.1rem; width: 20px; }
-
-        /* ── SERVICES ── */
-        .services { padding: 100px 30px; background: var(--blanco); }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: var(--blanco);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(10,31,68,0.08);
-            border: 1px solid #dde5f0;
-            border-top: 4px solid var(--azul-medio);
-            transition: all 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(10,31,68,0.15);
-        }
-
-        .service-img-wrap { overflow: hidden; position: relative; }
-
-        .service-img-wrap::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 60px;
-            background: linear-gradient(to top, white, transparent);
-        }
-
-        .service-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .service-card:hover .service-img { transform: scale(1.05); }
-
-        .service-body { padding: 25px 28px 30px; }
-
-        .service-icon-small {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px; height: 44px;
-            background: var(--azul-claro);
-            border-radius: 10px;
-            color: var(--azul-medio);
-            font-size: 1.2rem;
-            margin-bottom: 14px;
-            transition: all 0.3s;
-        }
-
-        .service-card:hover .service-icon-small { background: var(--azul-medio); color: white; }
-
-        .service-body h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--negro);
-        }
-
-        .service-body p { color: var(--gris-texto); font-size: 0.92rem; line-height: 1.7; }
-
-        /* ── GALERÍA ── */
-        .showcase { padding: 100px 30px; background: var(--gris-claro); }
-
-        .showcase-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            grid-template-rows: 220px 220px;
-            gap: 15px;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .showcase-item { position: relative; overflow: hidden; }
-        .showcase-item:first-child { grid-row: 1 / 3; }
-
-        .showcase-item img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .showcase-item:hover img { transform: scale(1.07); }
-
-        .showcase-item .overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(10,31,68,0.65), transparent);
-            display: flex;
-            align-items: flex-end;
-            padding: 15px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .showcase-item:hover .overlay { opacity: 1; }
-
-        .overlay span {
-            color: white;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        /* ── CTA ── */
-        .cta-band {
-            background: linear-gradient(135deg, var(--azul-oscuro) 0%, var(--azul) 100%);
-            padding: 80px 30px;
-            text-align: center;
-        }
-
-        .cta-band h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 900;
-            color: white;
-            margin-bottom: 15px;
-        }
-
-        .cta-band p { color: rgba(255,255,255,0.65); margin-bottom: 35px; font-size: 1.05rem; }
-
-        .btn-whatsapp {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 18px 40px;
-            background: #25d366;
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1rem;
-            box-shadow: 0 6px 30px rgba(37,211,102,0.35);
-            transition: all 0.3s;
-        }
-
-        .btn-whatsapp:hover { transform: translateY(-3px); background: #20ba5a; }
-
-        /* ── FOOTER ── */
-        footer { background: var(--azul-oscuro); color: rgba(255,255,255,0.5); padding: 40px 30px; }
-
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .footer-logo { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.2rem; color: white; }
-        .footer-logo span { color: #7aaee8; }
-
-        .footer-contact { display: flex; gap: 25px; flex-wrap: wrap; }
-
-        .footer-contact a {
-            color: rgba(255,255,255,0.6);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .footer-contact a:hover { color: #7aaee8; }
-        .footer-contact a i { color: #7aaee8; }
-
-        .footer-copy {
-            font-size: 0.8rem;
-            text-align: center;
-            width: 100%;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            margin-top: 20px;
-        }
-
-        /* ── WhatsApp flotante ── */
-        .whatsapp-button {
-            position: fixed;
-            bottom: 30px; right: 30px;
-            width: 60px; height: 60px;
-            background: #25d366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: white;
-            text-decoration: none;
-            box-shadow: 0 4px 20px rgba(37,211,102,0.5);
-            transition: all 0.3s;
-            z-index: 999;
-            animation: pulse 2.5s infinite;
-        }
-
-        .whatsapp-button:hover { transform: scale(1.12); animation: none; }
-
         @keyframes pulse {
-            0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.5); }
-            50% { box-shadow: 0 4px 30px rgba(37,211,102,0.9), 0 0 0 10px rgba(37,211,102,0.1); }
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+          50%       { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+        }
+
+        .hero-tag {
+          font-size: 0.65rem;
+          letter-spacing: 0.4em;
+          text-transform: uppercase;
+          color: var(--gold);
+          margin-bottom: 24px;
+          opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+        }
+        .hero-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(4rem, 9vw, 9rem);
+          font-weight: 300;
+          line-height: 0.92;
+          letter-spacing: -0.02em;
+          max-width: 750px;
+          opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
+        }
+        .hero-title em {
+          font-style: italic;
+          color: var(--purple-soft);
+        }
+        .hero-subtitle {
+          margin-top: 36px;
+          font-size: 0.78rem;
+          letter-spacing: 0.15em;
+          color: var(--gray);
+          max-width: 380px;
+          line-height: 1.9;
+          opacity: 0; animation: fadeUp 0.9s 0.65s forwards;
+        }
+        .hero-cta {
+          margin-top: 52px;
+          display: flex; gap: 20px; align-items: center;
+          opacity: 0; animation: fadeUp 0.9s 0.85s forwards;
+        }
+        .btn-primary {
+          padding: 16px 42px;
+          background: var(--purple-bright);
+          color: var(--white);
+          font-family: 'Montserrat', sans-serif;
+          font-size: 0.68rem;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          border: none;
+          cursor: none;
+          text-decoration: none;
+          transition: background 0.3s, transform 0.2s;
+          display: inline-block;
+        }
+        .btn-primary:hover { background: var(--purple-soft); transform: translateY(-2px); }
+        .btn-ghost {
+          font-size: 0.68rem;
+          letter-spacing: 0.25em;
+          text-transform: uppercase;
+          color: var(--gold);
+          text-decoration: none;
+          border-bottom: 1px solid var(--gold);
+          padding-bottom: 3px;
+          transition: opacity 0.3s;
+        }
+        .btn-ghost:hover { opacity: 0.6; }
+
+        /* scroll indicator */
+        .scroll-hint {
+          position: absolute;
+          bottom: 40px; left: 60px;
+          display: flex; align-items: center; gap: 14px;
+          font-size: 0.6rem;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: var(--gray);
+          opacity: 0; animation: fadeUp 1s 1.2s forwards;
+        }
+        .scroll-line {
+          width: 50px; height: 1px;
+          background: var(--purple-mid);
+          position: relative; overflow: hidden;
+        }
+        .scroll-line::after {
+          content: '';
+          position: absolute; top: 0; left: -100%;
+          width: 100%; height: 100%;
+          background: var(--gold);
+          animation: slide 2s 1.5s infinite;
+        }
+        @keyframes slide {
+          0%   { left: -100%; }
+          50%  { left: 0; }
+          100% { left: 100%; }
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(30px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* ── RESPONSIVE ── */
+        /* ── MARQUEE ── */
+        .marquee-wrap {
+          overflow: hidden;
+          border-top: 1px solid rgba(123,47,255,0.25);
+          border-bottom: 1px solid rgba(123,47,255,0.25);
+          padding: 18px 0;
+          background: rgba(26,10,46,0.5);
+        }
+        .marquee-inner {
+          display: flex; gap: 60px;
+          animation: marquee 18s linear infinite;
+          width: max-content;
+        }
+        @keyframes marquee {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
+        .marquee-item {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.1rem;
+          font-style: italic;
+          font-weight: 300;
+          color: var(--gray);
+          white-space: nowrap;
+          letter-spacing: 0.08em;
+        }
+        .marquee-item span { color: var(--gold); margin: 0 30px; }
+
+        /* ── SERVICES ── */
+        #servicios {
+          padding: 120px 60px;
+        }
+        .section-label {
+          font-size: 0.62rem;
+          letter-spacing: 0.45em;
+          text-transform: uppercase;
+          color: var(--gold);
+          margin-bottom: 60px;
+          display: flex; align-items: center; gap: 16px;
+        }
+        .section-label::before {
+          content: ''; display: block;
+          width: 40px; height: 1px; background: var(--gold);
+        }
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 2px;
+        }
+        .service-card {
+          padding: 50px 40px;
+          border: 1px solid rgba(123,47,255,0.15);
+          position: relative;
+          overflow: hidden;
+          cursor: none;
+          transition: border-color 0.4s;
+        }
+        .service-card::before {
+          content: '';
+          position: absolute; bottom: 0; left: 0;
+          width: 100%; height: 0;
+          background: linear-gradient(to top, rgba(123,47,255,0.12), transparent);
+          transition: height 0.5s ease;
+        }
+        .service-card:hover::before { height: 100%; }
+        .service-card:hover { border-color: rgba(123,47,255,0.5); }
+
+        .service-num {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 0.75rem;
+          color: var(--gold);
+          letter-spacing: 0.2em;
+          margin-bottom: 28px;
+        }
+        .service-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.9rem;
+          font-weight: 300;
+          line-height: 1.2;
+          margin-bottom: 18px;
+        }
+        .service-desc {
+          font-size: 0.72rem;
+          line-height: 2;
+          color: var(--gray);
+        }
+        .service-arrow {
+          margin-top: 30px;
+          font-size: 1.4rem;
+          color: var(--purple-soft);
+          display: inline-block;
+          transition: transform 0.3s;
+        }
+        .service-card:hover .service-arrow { transform: translateX(8px); }
+
+        /* ── ABOUT ── */
+        #nosotros {
+          padding: 120px 60px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          align-items: center;
+          position: relative;
+        }
+        #nosotros::before {
+          content: '';
+          position: absolute; right: -200px; top: 50%;
+          transform: translateY(-50%);
+          width: 500px; height: 500px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(61,26,110,0.4) 0%, transparent 70%);
+          pointer-events: none;
+        }
+        .about-visual {
+          position: relative;
+        }
+        .about-img-box {
+          width: 100%; aspect-ratio: 3/4;
+          background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-mid) 100%);
+          position: relative;
+          overflow: hidden;
+        }
+        .about-img-box::after {
+          content: 'SD';
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 12rem;
+          font-weight: 600;
+          color: rgba(123,47,255,0.15);
+          position: absolute;
+          bottom: -20px; right: -10px;
+          line-height: 1;
+        }
+        .about-badge {
+          position: absolute;
+          bottom: -24px; right: -24px;
+          width: 130px; height: 130px;
+          background: var(--gold);
+          border-radius: 50%;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          text-align: center;
+          animation: spin 20s linear infinite;
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        .about-badge-inner {
+          font-size: 0.5rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--black);
+          font-weight: 700;
+          line-height: 1.8;
+        }
+        .about-content { }
+        .about-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(2.5rem, 4vw, 4.5rem);
+          font-weight: 300;
+          line-height: 1.1;
+          margin-bottom: 32px;
+        }
+        .about-title em { font-style: italic; color: var(--purple-soft); }
+        .about-text {
+          font-size: 0.78rem;
+          line-height: 2.1;
+          color: var(--gray);
+          margin-bottom: 24px;
+        }
+        .about-stats {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 30px;
+          margin-top: 50px;
+          border-top: 1px solid rgba(123,47,255,0.2);
+          padding-top: 40px;
+        }
+        .stat-num {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 3rem;
+          font-weight: 300;
+          color: var(--white);
+        }
+        .stat-num span { color: var(--gold); font-size: 1.5rem; }
+        .stat-label {
+          font-size: 0.6rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: var(--gray);
+          margin-top: 4px;
+        }
+
+        /* ── PORTFOLIO ── */
+        #portafolio {
+          padding: 120px 60px;
+        }
+        .portfolio-header {
+          display: flex; justify-content: space-between; align-items: flex-end;
+          margin-bottom: 60px;
+        }
+        .portfolio-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(2.5rem, 4vw, 4.5rem);
+          font-weight: 300;
+          line-height: 1.05;
+        }
+        .portfolio-title em { font-style: italic; color: var(--purple-soft); }
+        .portfolio-grid {
+          display: grid;
+          grid-template-columns: repeat(12, 1fr);
+          grid-template-rows: auto;
+          gap: 16px;
+        }
+        .pcard {
+          position: relative; overflow: hidden;
+          cursor: none;
+        }
+        .pcard-1 { grid-column: 1 / 7; grid-row: 1; aspect-ratio: 4/3; }
+        .pcard-2 { grid-column: 7 / 13; grid-row: 1; aspect-ratio: 4/3; }
+        .pcard-3 { grid-column: 1 / 5; grid-row: 2; aspect-ratio: 3/4; }
+        .pcard-4 { grid-column: 5 / 9; grid-row: 2; aspect-ratio: 3/4; }
+        .pcard-5 { grid-column: 9 / 13; grid-row: 2; aspect-ratio: 3/4; }
+
+        .pcard-bg {
+          width: 100%; height: 100%;
+          transition: transform 0.7s ease;
+        }
+        .pcard:hover .pcard-bg { transform: scale(1.06); }
+
+        .pcard-1 .pcard-bg { background: linear-gradient(135deg, #1a0a2e 0%, #3d1a6e 60%, #7b2fff 100%); }
+        .pcard-2 .pcard-bg { background: linear-gradient(135deg, #0d0020 0%, #2a0050 100%); }
+        .pcard-3 .pcard-bg { background: linear-gradient(160deg, #1a0a2e 0%, #4a1a8e 100%); }
+        .pcard-4 .pcard-bg { background: linear-gradient(135deg, #0a0015 0%, #3d1a6e 100%); }
+        .pcard-5 .pcard-bg { background: linear-gradient(135deg, #1a0030 0%, #7b2fff 100%); }
+
+        .pcard-overlay {
+          position: absolute; inset: 0;
+          background: linear-gradient(to top, rgba(8,8,16,0.9) 0%, transparent 50%);
+          padding: 28px;
+          display: flex; flex-direction: column; justify-content: flex-end;
+          opacity: 0; transition: opacity 0.4s;
+        }
+        .pcard:hover .pcard-overlay { opacity: 1; }
+        .pcard-cat {
+          font-size: 0.58rem;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: var(--gold);
+          margin-bottom: 8px;
+        }
+        .pcard-name {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.4rem;
+          font-weight: 300;
+        }
+
+        /* decorative label on cards */
+        .pcard-label {
+          position: absolute;
+          top: 24px; left: 24px;
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 4rem;
+          font-weight: 300;
+          color: rgba(245,240,255,0.07);
+          line-height: 1;
+          pointer-events: none;
+        }
+
+        /* ── CONTACT ── */
+        #contacto {
+          padding: 120px 60px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 80px;
+          position: relative;
+        }
+        .contact-left { }
+        .contact-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(3rem, 5vw, 6rem);
+          font-weight: 300;
+          line-height: 1;
+          margin-bottom: 32px;
+        }
+        .contact-title em { font-style: italic; color: var(--purple-soft); }
+        .contact-info {
+          margin-top: 50px;
+          display: flex; flex-direction: column; gap: 24px;
+        }
+        .info-item {
+          display: flex; flex-direction: column; gap: 6px;
+        }
+        .info-label {
+          font-size: 0.58rem;
+          letter-spacing: 0.35em;
+          text-transform: uppercase;
+          color: var(--gold);
+        }
+        .info-val {
+          font-size: 0.9rem;
+          color: var(--white);
+        }
+        .contact-form { display: flex; flex-direction: column; gap: 24px; }
+        .form-group { display: flex; flex-direction: column; gap: 10px; }
+        .form-label {
+          font-size: 0.6rem;
+          letter-spacing: 0.3em;
+          text-transform: uppercase;
+          color: var(--gray);
+        }
+        .form-input, .form-textarea {
+          background: rgba(26,10,46,0.5);
+          border: 1px solid rgba(123,47,255,0.25);
+          color: var(--white);
+          font-family: 'Montserrat', sans-serif;
+          font-size: 0.82rem;
+          padding: 16px 20px;
+          outline: none;
+          transition: border-color 0.3s;
+          cursor: none;
+        }
+        .form-input:focus, .form-textarea:focus {
+          border-color: var(--purple-bright);
+        }
+        .form-textarea { resize: vertical; min-height: 130px; }
+        .form-input::placeholder, .form-textarea::placeholder { color: rgba(168,159,192,0.4); }
+
+        /* ── FOOTER ── */
+        footer {
+          border-top: 1px solid rgba(123,47,255,0.2);
+          padding: 50px 60px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .footer-logo {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 1.3rem;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          color: var(--white);
+        }
+        .footer-logo span { color: var(--gold); }
+        .footer-copy {
+          font-size: 0.6rem;
+          letter-spacing: 0.15em;
+          color: var(--gray);
+        }
+        .footer-socials {
+          display: flex; gap: 24px;
+        }
+        .footer-socials a {
+          font-size: 0.6rem;
+          letter-spacing: 0.25em;
+          text-transform: uppercase;
+          color: var(--gray);
+          text-decoration: none;
+          transition: color 0.3s;
+        }
+        .footer-socials a:hover { color: var(--gold); }
+
+        /* ── MOBILE ── */
         @media (max-width: 900px) {
-            .showcase-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 180px); }
-            .showcase-item:first-child { grid-row: auto; }
-        }
-
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-
-            .nav-menu {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px; left: 0; right: 0;
-                background: var(--azul-oscuro);
-                padding: 20px 30px 30px;
-                gap: 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            }
-
-            .nav-menu.open { display: flex; }
-            .about-grid { grid-template-columns: 1fr; gap: 30px; }
-            .footer-inner { flex-direction: column; text-align: center; }
-            .footer-contact { justify-content: center; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .services-grid { grid-template-columns: 1fr; }
-            .showcase-grid { grid-template-columns: 1fr; grid-template-rows: repeat(5, 200px); }
+          nav { padding: 22px 24px; }
+          .nav-links { display: none; }
+          #hero { padding: 120px 24px 60px; }
+          .scroll-hint { left: 24px; }
+          #servicios { padding: 80px 24px; }
+          .services-grid { grid-template-columns: 1fr; }
+          #nosotros { grid-template-columns: 1fr; padding: 80px 24px; }
+          #portafolio { padding: 80px 24px; }
+          .portfolio-grid { grid-template-columns: 1fr 1fr; }
+          .pcard-1, .pcard-2 { grid-column: span 2; }
+          .pcard-3, .pcard-4, .pcard-5 { grid-column: span 1; }
+          .portfolio-header { flex-direction: column; gap: 20px; align-items: flex-start; }
+          #contacto { grid-template-columns: 1fr; padding: 80px 24px; }
+          footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
         }
     </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="nav-inner">
-        <div class="logo">Multiservicios <span>JCD</span></div>
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="#home">Inicio</a></li>
-            <li><a href="#services">Servicios</a></li>
-            <li><a href="#about">Nosotros</a></li>
-            <li><a href="#contacto">Contacto</a></li>
-        </ul>
-        <button class="hamburger" id="hamburger" aria-label="Menú">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+    <a class="nav-logo" href="#">SAENZ <span>DELUXE</span></a>
+    <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#portafolio">Portafolio</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+    </ul>
 </nav>
 
 <!-- HERO -->
-<section id="home" class="hero">
-    <div class="floating-icons" id="floatingIcons"></div>
-    <div class="hero-content">
-        <div class="hero-badge">⚡ Servicio Profesional Garantizado</div>
-        <h1>Multiservicios <span style="color:#7aaee8;">JCD</span></h1>
-        <p>Tu hogar en las mejores manos. Electricidad, fontanería, reformas y más con calidad y rapidez en España.</p>
-        <div class="hero-buttons">
-            <a href="#services" class="btn-primary"><i class="fas fa-tools"></i> Ver Servicios</a>
-            <a href="https://wa.me/34637222119" class="btn-secondary" target="_blank"><i class="fab fa-whatsapp"></i> Pedir Presupuesto</a>
-        </div>
+<section id="hero">
+    <p class="hero-tag">Estudio de Diseño · Cali, Colombia</p>
+    <h1 class="hero-title">
+        Diseño que<br>
+        <em>transforma</em><br>
+        marcas.
+    </h1>
+    <p class="hero-subtitle">
+        Creamos identidades visuales únicas que conectan con las personas y elevan la presencia de tu marca al siguiente nivel.
+    </p>
+    <div class="hero-cta">
+        <a href="#portafolio" class="btn-primary">Ver portafolio</a>
+        <a href="#contacto" class="btn-ghost">Hablemos →</a>
+    </div>
+    <div class="scroll-hint">
+        <div class="scroll-line"></div>
+        Desplazar
     </div>
 </section>
 
-<!-- STATS -->
-<div class="stats-bar">
-    <div class="stats-inner">
-        <div class="stat"><div class="stat-num">+500</div><div class="stat-label">Clientes Satisfechos</div></div>
-        <div class="stat"><div class="stat-num">6</div><div class="stat-label">Especialidades</div></div>
-        <div class="stat"><div class="stat-num">24h</div><div class="stat-label">Respuesta Rápida</div></div>
-        <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Garantía en Trabajos</div></div>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+    <div class="marquee-inner">
+        <span class="marquee-item">Identidad Visual <span>✦</span></span>
+        <span class="marquee-item">Diseño Web <span>✦</span></span>
+        <span class="marquee-item">Branding Deluxe <span>✦</span></span>
+        <span class="marquee-item">Motion Design <span>✦</span></span>
+        <span class="marquee-item">Packaging <span>✦</span></span>
+        <span class="marquee-item">Estrategia de Marca <span>✦</span></span>
+        <span class="marquee-item">Identidad Visual <span>✦</span></span>
+        <span class="marquee-item">Diseño Web <span>✦</span></span>
+        <span class="marquee-item">Branding Deluxe <span>✦</span></span>
+        <span class="marquee-item">Motion Design <span>✦</span></span>
+        <span class="marquee-item">Packaging <span>✦</span></span>
+        <span class="marquee-item">Estrategia de Marca <span>✦</span></span>
     </div>
 </div>
 
-<!-- ABOUT -->
-<section id="about" class="about">
-    <div class="container">
-        <div class="about-grid">
-            <div class="about-text">
-                <div class="section-tag">Sobre Nosotros</div>
-                <h2 style="font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:20px;">Profesionales con experiencia real</h2>
-                <p>Somos una empresa de servicios integrales dedicada a brindar soluciones de calidad en reparación, mantenimiento y reforma por toda España.</p>
-                <p>Nos comprometemos a ejecutar cada proyecto con profesionalismo, puntualidad y dedicación — dejando tu hogar o negocio en perfectas condiciones.</p>
+<!-- SERVICIOS -->
+<section id="servicios">
+    <p class="section-label">Servicios</p>
+    <div class="services-grid">
+        <div class="service-card">
+            <p class="service-num">01</p>
+            <h3 class="service-title">Identidad<br>Visual</h3>
+            <p class="service-desc">Creamos el sistema visual completo de tu marca: logotipo, paleta, tipografía y lineamientos que hacen que tu negocio sea inconfundible.</p>
+            <span class="service-arrow">→</span>
+        </div>
+        <div class="service-card">
+            <p class="service-num">02</p>
+            <h3 class="service-title">Diseño<br>Web</h3>
+            <p class="service-desc">Sitios web elegantes, funcionales y optimizados que convierten visitantes en clientes. Experiencias digitales a la altura de tu marca.</p>
+            <span class="service-arrow">→</span>
+        </div>
+        <div class="service-card">
+            <p class="service-num">03</p>
+            <h3 class="service-title">Branding<br>& Estrategia</h3>
+            <p class="service-desc">Más allá del diseño: definimos el posicionamiento, la voz y la personalidad de tu marca para que resuene con tu audiencia ideal.</p>
+            <span class="service-arrow">→</span>
+        </div>
+    </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+    <div class="about-visual">
+        <div class="about-img-box"></div>
+        <div class="about-badge">
+            <div class="about-badge-inner">Saenz<br>Deluxe<br>✦<br>Diseño</div>
+        </div>
+    </div>
+    <div class="about-content">
+        <p class="section-label">Nosotros</p>
+        <h2 class="about-title">
+            El diseño<br>
+            es nuestra<br>
+            <em>obsesión.</em>
+        </h2>
+        <p class="about-text">
+            Somos un estudio especializado en diseño de alto impacto. Trabajamos con marcas que quieren destacar, creando piezas visuales que van más allá de lo estético y generan resultados reales.
+        </p>
+        <p class="about-text">
+            Cada proyecto es único. Nos tomamos el tiempo de entender tu negocio, tu audiencia y tus metas para entregarte un diseño que realmente funcione.
+        </p>
+        <div class="about-stats">
+            <div>
+                <div class="stat-num">5<span>+</span></div>
+                <div class="stat-label">Años de experiencia</div>
             </div>
-            <div class="about-features">
-                <div class="feature-item"><i class="fas fa-check-circle"></i> Presupuesto sin compromiso</div>
-                <div class="feature-item"><i class="fas fa-check-circle"></i> Materiales de primera calidad</div>
-                <div class="feature-item"><i class="fas fa-check-circle"></i> Trabajos garantizados por escrito</div>
-                <div class="feature-item"><i class="fas fa-check-circle"></i> Atención rápida y puntual</div>
-                <div class="feature-item"><i class="fas fa-check-circle"></i> Precio justo y transparente</div>
-                <div class="feature-item"><i class="fas fa-check-circle"></i> Disponibles toda la semana</div>
+            <div>
+                <div class="stat-num">80<span>+</span></div>
+                <div class="stat-label">Proyectos realizados</div>
+            </div>
+            <div>
+                <div class="stat-num">98<span>%</span></div>
+                <div class="stat-label">Clientes satisfechos</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- SERVICES -->
-<section id="services" class="services">
-    <div class="container">
-        <div class="section-header">
-            <div class="section-tag">Qué Hacemos</div>
-            <h2>Nuestros Servicios</h2>
+<!-- PORTAFOLIO -->
+<section id="portafolio">
+    <div class="portfolio-header">
+        <h2 class="portfolio-title">
+            Nuestro<br>
+            <em>trabajo.</em>
+        </h2>
+        <a href="#contacto" class="btn-ghost">Ver todo →</a>
+    </div>
+    <div class="portfolio-grid">
+        <div class="pcard pcard-1">
+            <div class="pcard-bg"></div>
+            <span class="pcard-label">01</span>
+            <div class="pcard-overlay">
+                <p class="pcard-cat">Identidad Visual</p>
+                <p class="pcard-name">Proyecto Aurora</p>
+            </div>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-img-wrap">
-                    <img class="service-img" src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80" alt="Electricidad" loading="lazy">
-                </div>
-                <div class="service-body">
-                    <div class="service-icon-small"><i class="fas fa-bolt"></i></div>
-                    <h3>Electricidad</h3>
-                    <p>Instalación, reparación y mantenimiento de sistemas eléctricos seguros y confiables.</p>
-                </div>
+        <div class="pcard pcard-2">
+            <div class="pcard-bg"></div>
+            <span class="pcard-label">02</span>
+            <div class="pcard-overlay">
+                <p class="pcard-cat">Diseño Web</p>
+                <p class="pcard-name">Studio Noir</p>
             </div>
-            <div class="service-card">
-                <div class="service-img-wrap">
-                    <img class="service-img" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80" alt="Fontanería" loading="lazy">
-                </div>
-                <div class="service-body">
-                    <div class="service-icon-small"><i class="fas fa-wrench"></i></div>
-                    <h3>Fontanería</h3>
-                    <p>Servicios de agua, drenaje y sistemas hidráulicos de calidad garantizada.</p>
-                </div>
+        </div>
+        <div class="pcard pcard-3">
+            <div class="pcard-bg"></div>
+            <span class="pcard-label">03</span>
+            <div class="pcard-overlay">
+                <p class="pcard-cat">Branding</p>
+                <p class="pcard-name">Lumine Co.</p>
             </div>
-            <div class="service-card">
-                <div class="service-img-wrap">
-                    <img class="service-img" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80" alt="Plomería" loading="lazy">
-                </div>
-                <div class="service-body">
-                    <div class="service-icon-small"><i class="fas fa-shower"></i></div>
-                    <h3>Plomería</h3>
-                    <p>Reparación e instalación de sistemas de plomería con profesionales expertos.</p>
-                </div>
+        </div>
+        <div class="pcard pcard-4">
+            <div class="pcard-bg"></div>
+            <span class="pcard-label">04</span>
+            <div class="pcard-overlay">
+                <p class="pcard-cat">Packaging</p>
+                <p class="pcard-name">Velvet Touch</p>
             </div>
-            <div class="service-card">
-                <div class="service-img-wrap">
-                    <img class="service-img" src="https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=600&q=80" alt="Reformas Generales" loading="lazy">
-                </div>
-                <div class="service-body">
-                    <div class="service-icon-small"><i class="fas fa-hammer"></i></div>
-                    <h3>Reformas Generales</h3>
-                    <p>Renovación integral de espacios, desde diseño hasta ejecución final.</p>
-                </div>
-            </div>
-            <div class="service-card">
-                <div class="service-img-wrap">
-                    <img class="service-img" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80" alt="Albañilería" loading="lazy">
-                </div>
-                <div class="service-body">
-                    <div class="service-icon-small"><i class="fas fa-tools"></i></div>
-                    <h3>Reformas Eléctricas y Albañilería</h3>
-                    <p>Especialistas en modificaciones eléctricas y trabajos de construcción.</p>
-                </div>
-            </div>
-            <div class="service-card">
-                <div class="service-img-wrap">
-                    <img class="service-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Cerrajería" loading="lazy">
-                </div>
-                <div class="service-body">
-                    <div class="service-icon-small"><i class="fas fa-key"></i></div>
-                    <h3>Cerrajería</h3>
-                    <p>Servicios de cerrajería profesional, instalación y reparación de cerraduras.</p>
-                </div>
+        </div>
+        <div class="pcard pcard-5">
+            <div class="pcard-bg"></div>
+            <span class="pcard-label">05</span>
+            <div class="pcard-overlay">
+                <p class="pcard-cat">Motion</p>
+                <p class="pcard-name">Nexus Brand</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- GALERÍA -->
-<section class="showcase">
-    <div class="container">
-        <div class="section-header">
-            <div class="section-tag">Nuestro Trabajo</div>
-            <h2>Así dejamos cada proyecto</h2>
-        </div>
-        <div class="showcase-grid">
-            <div class="showcase-item">
-                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80" alt="Reformas integrales" loading="lazy">
-                <div class="overlay"><span>Reformas integrales</span></div>
+<!-- CONTACTO -->
+<section id="contacto">
+    <div class="contact-left">
+        <p class="section-label">Contacto</p>
+        <h2 class="contact-title">
+            Hagamos<br>
+            algo<br>
+            <em>increíble.</em>
+        </h2>
+        <div class="contact-info">
+            <div class="info-item">
+                <span class="info-label">Email</span>
+                <span class="info-val">hola@saenzdeluxe.com</span>
             </div>
-            <div class="showcase-item">
-                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80" alt="Electricidad" loading="lazy">
-                <div class="overlay"><span>Instalaciones eléctricas</span></div>
+            <div class="info-item">
+                <span class="info-label">Teléfono / WhatsApp</span>
+                <span class="info-val">+57 300 000 0000</span>
             </div>
-            <div class="showcase-item">
-                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Cerrajería" loading="lazy">
-                <div class="overlay"><span>Cerrajería profesional</span></div>
-            </div>
-            <div class="showcase-item">
-                <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=400&q=80" alt="Fontanería" loading="lazy">
-                <div class="overlay"><span>Fontanería profesional</span></div>
-            </div>
-            <div class="showcase-item">
-                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=80" alt="Albañilería" loading="lazy">
-                <div class="overlay"><span>Albañilería y obra</span></div>
+            <div class="info-item">
+                <span class="info-label">Ubicación</span>
+                <span class="info-val">Cali, Colombia</span>
             </div>
         </div>
     </div>
+    <div class="contact-form">
+        <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input class="form-input" type="text" placeholder="Tu nombre completo" />
+        </div>
+        <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" placeholder="tu@email.com" />
+        </div>
+        <div class="form-group">
+            <label class="form-label">Servicio de interés</label>
+            <input class="form-input" type="text" placeholder="Branding, Diseño Web, etc." />
+        </div>
+        <div class="form-group">
+            <label class="form-label">Cuéntame sobre tu proyecto</label>
+            <textarea class="form-textarea" placeholder="Describe brevemente tu idea..."></textarea>
+        </div>
+        <a href="#" class="btn-primary" style="text-align:center;">Enviar mensaje</a>
+    </div>
 </section>
-
-<!-- CTA -->
-<div class="cta-band" id="contacto">
-    <h2>¿Necesitas un presupuesto?</h2>
-    <p>Escríbenos por WhatsApp y te respondemos en minutos. Sin compromiso.</p>
-    <a href="https://wa.me/34637222119" class="btn-whatsapp" target="_blank">
-        <i class="fab fa-whatsapp"></i> Contactar por WhatsApp
-    </a>
-</div>
 
 <!-- FOOTER -->
 <footer>
-    <div class="footer-inner">
-        <div class="footer-logo">Multiservicios <span>JCD</span></div>
-        <div class="footer-contact">
-            <a href="tel:+34637222119"><i class="fas fa-phone"></i> +34 637 22 21 19</a>
-            <a href="https://wa.me/34637222119" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-        </div>
-        <div class="footer-copy">© 2026 Multiservicios JCD · Todos los derechos reservados</div>
+    <div class="footer-logo">SAENZ <span>DELUXE</span></div>
+    <p class="footer-copy">© 2025 Saenz Deluxe. Todos los derechos reservados.</p>
+    <div class="footer-socials">
+        <a href="#">Instagram</a>
+        <a href="#">Behance</a>
+        <a href="#">LinkedIn</a>
     </div>
 </footer>
 
-<a href="https://wa.me/34637222119" class="whatsapp-button" target="_blank" title="Escríbenos por WhatsApp">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
 <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('open');
-    });
-    navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('open');
-        });
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
     });
 
-    // Iconos flotantes usando emojis/símbolos — no dependen de Font Awesome
-    const symbols = ['⚡', '🔧', '🔨', '🔑', '⚙️', '🪛', '🔩', '🪚', '🛠️'];
-    const container = document.getElementById('floatingIcons');
-
-    function createIcon() {
-        const el = document.createElement('span');
-        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        const size = Math.random() * 30 + 25;
-        const left = Math.random() * 95;
-        const duration = Math.random() * 10 + 7;
-        const delay = Math.random() * 5;
-        el.style.cssText = `
-            position: absolute;
-            font-size: ${size}px;
-            left: ${left}%;
-            bottom: -60px;
-            opacity: 0;
-            filter: grayscale(1) brightness(0.6) sepia(1) hue-rotate(190deg);
-            animation: floatUp ${duration}s ${delay}s linear forwards;
-            pointer-events: none;
-            user-select: none;
-        `;
-        container.appendChild(el);
-        setTimeout(() => el.remove(), (duration + delay) * 1000);
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.transform = `translate(${rx - 19}px, ${ry - 19}px)`;
+      requestAnimationFrame(animRing);
     }
+    animRing();
 
-    // Ráfaga inicial: 25 iconos en los primeros 2 segundos
-    for (let i = 0; i < 25; i++) {
-        setTimeout(createIcon, i * 80);
-    }
-    // Después ritmo lento y constante
-    setTimeout(() => {
-        setInterval(createIcon, 2200);
-    }, 2500);
+    // Cursor scale on hover
+    document.querySelectorAll('a, button, .service-card, .pcard').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.transform += ' scale(2.5)';
+        ring.style.transform += ' scale(1.5)';
+      });
+      el.addEventListener('mouseleave', () => {});
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-card, .pcard, .about-content, .contact-left, .contact-form').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(40px)';
+      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+      observer.observe(el);
+    });
 </script>
 </body>
 </html>
