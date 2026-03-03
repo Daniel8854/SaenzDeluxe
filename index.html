@@ -591,7 +591,146 @@
           .portfolio-header { flex-direction: column; gap: 20px; align-items: flex-start; }
           #contacto { grid-template-columns: 1fr; padding: 80px 24px; }
           footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
+          #whatsapp-section { padding: 80px 24px; }
+          .wa-inner { flex-direction: column; gap: 40px; }
         }
+
+        /* ── WHATSAPP SECTION ── */
+        #whatsapp-section {
+          padding: 120px 60px;
+          position: relative;
+          overflow: hidden;
+        }
+        #whatsapp-section::before {
+          content: '';
+          position: absolute; inset: 0;
+          background: linear-gradient(135deg, rgba(26,10,46,0.8) 0%, rgba(8,8,16,1) 60%);
+          pointer-events: none;
+        }
+        #whatsapp-section::after {
+          content: '';
+          position: absolute;
+          width: 600px; height: 600px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(37,211,102,0.08) 0%, transparent 70%);
+          top: 50%; left: 20%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+        }
+        .wa-inner {
+          position: relative; z-index: 1;
+          display: flex;
+          gap: 80px;
+          align-items: center;
+          border: 1px solid rgba(37,211,102,0.15);
+          padding: 70px;
+          background: rgba(8,8,16,0.6);
+          backdrop-filter: blur(10px);
+        }
+        .wa-left { flex: 0 0 auto; }
+        .wa-tag {
+          font-size: 0.62rem;
+          letter-spacing: 0.4em;
+          text-transform: uppercase;
+          color: #25d366;
+          margin-bottom: 20px;
+          display: flex; align-items: center; gap: 12px;
+        }
+        .wa-tag::before {
+          content: ''; display: block;
+          width: 30px; height: 1px; background: #25d366;
+        }
+        .wa-title {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: clamp(2.5rem, 4vw, 4rem);
+          font-weight: 300;
+          line-height: 1.05;
+        }
+        .wa-title em { font-style: italic; color: var(--purple-soft); }
+        .wa-right { flex: 1; }
+        .wa-desc {
+          font-size: 0.78rem;
+          line-height: 2.1;
+          color: var(--gray);
+          margin-bottom: 40px;
+          max-width: 460px;
+        }
+        .wa-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          padding: 18px 44px;
+          background: #25d366;
+          color: #0a1a0a;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.25em;
+          text-transform: uppercase;
+          text-decoration: none;
+          transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+          box-shadow: 0 0 30px rgba(37,211,102,0.2);
+        }
+        .wa-btn:hover {
+          background: #1ebe5d;
+          transform: translateY(-3px);
+          box-shadow: 0 0 50px rgba(37,211,102,0.35);
+        }
+        .wa-number {
+          margin-top: 18px;
+          font-size: 0.65rem;
+          letter-spacing: 0.25em;
+          color: rgba(37,211,102,0.6);
+        }
+
+        /* ── FLOATING WA BUTTON ── */
+        .wa-float {
+          position: fixed;
+          bottom: 36px; right: 36px;
+          width: 62px; height: 62px;
+          background: #25d366;
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          color: #fff;
+          text-decoration: none;
+          z-index: 500;
+          box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+          transition: transform 0.3s, box-shadow 0.3s;
+          cursor: none;
+        }
+        .wa-float:hover {
+          transform: scale(1.12);
+          box-shadow: 0 8px 36px rgba(37,211,102,0.6);
+        }
+        .wa-float::before {
+          content: '';
+          position: absolute;
+          width: 100%; height: 100%;
+          border-radius: 50%;
+          background: #25d366;
+          animation: waPulse 2.5s ease-out infinite;
+          z-index: -1;
+        }
+        @keyframes waPulse {
+          0%   { transform: scale(1); opacity: 0.7; }
+          100% { transform: scale(2.2); opacity: 0; }
+        }
+        .wa-float-tooltip {
+          position: absolute;
+          right: 74px;
+          background: rgba(8,8,16,0.9);
+          border: 1px solid rgba(37,211,102,0.3);
+          color: var(--white);
+          font-size: 0.62rem;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          padding: 8px 16px;
+          white-space: nowrap;
+          opacity: 0;
+          transition: opacity 0.3s;
+          pointer-events: none;
+        }
+        .wa-float:hover .wa-float-tooltip { opacity: 1; }
     </style>
 </head>
 <body>
@@ -778,7 +917,7 @@
         <div class="contact-info">
             <div class="info-item">
                 <span class="info-label">Email</span>
-                <span class="info-val">hola@saenzdeluxe.com</span>
+                <span class="info-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e58d8a8984a59684808b9f818089909d80cb868a88">[email&#160;protected]</a></span>
             </div>
             <div class="info-item">
                 <span class="info-label">Teléfono / WhatsApp</span>
@@ -811,6 +950,34 @@
     </div>
 </section>
 
+<!-- WHATSAPP SECTION -->
+<section id="whatsapp-section">
+    <div class="wa-inner">
+        <div class="wa-left">
+            <p class="wa-tag">Respuesta rápida</p>
+            <h2 class="wa-title">¿Prefieres<br>escribirnos<br><em>directamente?</em></h2>
+        </div>
+        <div class="wa-right">
+            <p class="wa-desc">
+                Estamos disponibles para responder tus preguntas, cotizar tu proyecto o simplemente charlar sobre tu idea. Escríbenos por WhatsApp y te respondemos a la brevedad.
+            </p>
+            <a
+                    href="https://wa.me/573104163077?text=Hola%20Saenz%20Deluxe%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="wa-btn"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.121 1.533 5.848L0 24l6.335-1.511A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.371l-.36-.214-3.731.889.936-3.623-.235-.374A9.818 9.818 0 1112 21.818z"/>
+                </svg>
+                Escribir por WhatsApp
+            </a>
+            <p class="wa-number">+57 310 416 3077</p>
+        </div>
+    </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
     <div class="footer-logo">SAENZ <span>DELUXE</span></div>
@@ -822,8 +989,22 @@
     </div>
 </footer>
 
+<!-- WHATSAPP FLOATING BUTTON -->
+<a
+        href="https://wa.me/573104163077?text=Hola%20Saenz%20Deluxe%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20sus%20servicios."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="wa-float"
+        title="Chatea con nosotros"
+>
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.121 1.533 5.848L0 24l6.335-1.511A11.933 11.933 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.371l-.36-.214-3.731.889.936-3.623-.235-.374A9.818 9.818 0 1112 21.818z"/>
+    </svg>
+    <span class="wa-float-tooltip">¡Escríbenos!</span>
+</a>
+
 <script>
-    // Custom cursor
     const cursor = document.getElementById('cursor');
     const ring   = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -841,16 +1022,6 @@
     }
     animRing();
 
-    // Cursor scale on hover
-    document.querySelectorAll('a, button, .service-card, .pcard').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.transform += ' scale(2.5)';
-        ring.style.transform += ' scale(1.5)';
-      });
-      el.addEventListener('mouseleave', () => {});
-    });
-
-    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -860,7 +1031,7 @@
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.service-card, .pcard, .about-content, .contact-left, .contact-form').forEach(el => {
+    document.querySelectorAll('.service-card, .pcard, .about-content, .contact-left, .contact-form, .wa-inner').forEach(el => {
       el.style.opacity = '0';
       el.style.transform = 'translateY(40px)';
       el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
