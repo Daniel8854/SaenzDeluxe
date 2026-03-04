@@ -20,7 +20,7 @@
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
 
         body {
           background: var(--black);
@@ -897,19 +897,33 @@
           nav { padding: 18px 20px; }
           .nav-logo { font-size: 1.1rem; }
 
-          #hero { padding: 100px 20px 50px; }
+          #hero {
+            padding: 90px 20px 50px;
+            min-height: auto;
+          }
           .hero-title { font-size: clamp(2.6rem, 11vw, 3.5rem); line-height: 1; }
           .hero-subtitle { font-size: 0.72rem; }
           .hero-cta { flex-direction: column; align-items: flex-start; gap: 16px; }
-          .btn-primary { width: 100%; text-align: center; padding: 16px 24px; }
+          .btn-primary { width: 100%; text-align: center; padding: 16px 24px; box-sizing: border-box; }
+          #hero::after { display: none; }
           .scroll-hint { display: none; }
 
           .marquee-item { font-size: 0.9rem; }
 
           #servicios { padding: 60px 20px; }
-          .services-grid { grid-template-columns: 1fr; gap: 12px; }
-          .service-card { padding: 32px 24px; }
+          .services-grid {
+            grid-template-columns: 1fr !important;
+            gap: 12px;
+          }
+          .service-card {
+            padding: 32px 24px;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+          }
+          .service-card > * { position: relative; z-index: 2; }
           .service-title { font-size: 1.6rem; }
+          .service-desc { font-size: 0.72rem; word-break: break-word; }
 
           #nosotros { padding: 60px 20px; gap: 40px; }
           .about-img-box { aspect-ratio: 1/1; }
@@ -928,9 +942,13 @@
           .web-screen { padding: 18px; min-height: 220px; }
 
           #portafolio { padding: 60px 20px; }
-          .portfolio-grid { grid-template-columns: 1fr; gap: 10px; }
+          .portfolio-grid {
+            grid-template-columns: 1fr !important;
+            gap: 10px;
+          }
           .pcard-1, .pcard-2, .pcard-3, .pcard-4, .pcard-5 {
-            grid-column: span 1;
+            grid-column: span 1 !important;
+            grid-row: auto !important;
             aspect-ratio: 4/3;
           }
           .portfolio-title { font-size: clamp(2rem, 8vw, 3rem); }
@@ -938,7 +956,7 @@
           #whatsapp-section { padding: 60px 20px; }
           .wa-inner { padding: 32px 20px; gap: 32px; }
           .wa-title { font-size: clamp(2rem, 8vw, 3rem); }
-          .wa-btn { padding: 16px 28px; font-size: 0.65rem; }
+          .wa-btn { padding: 16px 28px; font-size: 0.65rem; width: 100%; justify-content: center; box-sizing: border-box; }
           .wa-email-link { font-size: 0.95rem; }
 
           .section-label { font-size: 0.55rem; }
