@@ -910,18 +910,30 @@
 
           .marquee-item { font-size: 0.9rem; }
 
-          #servicios { padding: 60px 20px; }
+          #servicios { padding: 60px 0 60px 20px; }
+          .section-label { padding-right: 20px; }
           .services-grid {
-            grid-template-columns: 1fr !important;
-            gap: 12px;
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto;
+            overflow-y: visible;
+            gap: 12px !important;
+            padding-right: 20px;
+            padding-bottom: 16px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
           }
+          .services-grid::-webkit-scrollbar { display: none; }
           .service-card {
-            padding: 32px 24px;
-            width: 100%;
+            min-width: 72vw !important;
+            max-width: 72vw !important;
+            width: 72vw !important;
+            flex-shrink: 0;
+            padding: 32px 24px !important;
+            scroll-snap-align: start;
             box-sizing: border-box;
-            overflow: hidden;
           }
-          .service-card > * { position: relative; z-index: 2; }
           .service-title { font-size: 1.6rem; }
           .service-desc { font-size: 0.72rem; word-break: break-word; }
 
