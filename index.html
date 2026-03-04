@@ -239,47 +239,88 @@
         }
         .services-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 2px;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
         }
         .service-card {
-          padding: 50px 40px;
+          padding: 50px 44px;
           border: 1px solid rgba(123,47,255,0.15);
           position: relative;
           overflow: hidden;
-          transition: border-color 0.4s;
+          transition: border-color 0.4s, transform 0.3s;
+          background-color: rgba(8,8,16,0.85);
         }
+        /* Textura geométrica dorada */
+        .service-card::after {
+          content: '';
+          position: absolute; inset: 0;
+          background-image:
+            linear-gradient(rgba(201,168,76,0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(201,168,76,0.045) 1px, transparent 1px),
+            linear-gradient(135deg, rgba(201,168,76,0.03) 1px, transparent 1px),
+            linear-gradient(45deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+          background-size: 32px 32px, 32px 32px, 32px 32px, 32px 32px;
+          pointer-events: none;
+          z-index: 0;
+          opacity: 0.8;
+          transition: opacity 0.4s;
+        }
+        .service-card:hover::after { opacity: 1; }
+        /* Hover glow overlay — usamos un pseudo diferente via JS imposible, lo hacemos con gradiente en ::before */
         .service-card::before {
           content: '';
           position: absolute; bottom: 0; left: 0;
           width: 100%; height: 0;
           background: linear-gradient(to top, rgba(123,47,255,0.12), transparent);
           transition: height 0.5s ease;
+          z-index: 1;
         }
         .service-card:hover::before { height: 100%; }
-        .service-card:hover { border-color: rgba(123,47,255,0.5); }
-
+        .service-card:hover {
+          border-color: rgba(201,168,76,0.35);
+          transform: translateY(-4px);
+        }
+        /* Asegura que el contenido quede encima de la textura */
+        .service-card > * { position: relative; z-index: 2; }
+        .service-icon-wrap {
+          width: 62px; height: 62px;
+          border-radius: 50%;
+          background: rgba(123,47,255,0.12);
+          border: 1px solid rgba(123,47,255,0.3);
+          display: flex; align-items: center; justify-content: center;
+          margin-bottom: 32px;
+          transition: background 0.4s, box-shadow 0.4s;
+        }
+        .service-card:hover .service-icon-wrap {
+          background: rgba(123,47,255,0.22);
+          box-shadow: 0 0 24px rgba(123,47,255,0.35);
+        }
+        .service-icon-wrap svg {
+          color: var(--purple-soft);
+          transition: color 0.3s;
+        }
+        .service-card:hover .service-icon-wrap svg { color: #fff; }
         .service-num {
           font-family: 'Cormorant Garamond', serif;
           font-size: 0.75rem;
           color: var(--gold);
           letter-spacing: 0.2em;
-          margin-bottom: 28px;
+          margin-bottom: 16px;
         }
         .service-title {
           font-family: 'Cormorant Garamond', serif;
-          font-size: 1.9rem;
+          font-size: 2rem;
           font-weight: 300;
           line-height: 1.2;
           margin-bottom: 18px;
         }
         .service-desc {
-          font-size: 0.72rem;
-          line-height: 2;
+          font-size: 0.74rem;
+          line-height: 2.1;
           color: var(--gray);
         }
         .service-arrow {
-          margin-top: 30px;
+          margin-top: 32px;
           font-size: 1.4rem;
           color: var(--purple-soft);
           display: inline-block;
@@ -801,48 +842,91 @@
 <section id="servicios">
     <p class="section-label">Servicios</p>
     <div class="services-grid">
+
         <div class="service-card">
+            <div class="service-icon-wrap">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+            </div>
             <p class="service-num">01</p>
             <h3 class="service-title">Marketing</h3>
             <p class="service-desc">Estrategias de marketing efectivas que posicionan tu marca, atraen clientes y generan resultados medibles para tu negocio.</p>
             <span class="service-arrow">→</span>
         </div>
+
         <div class="service-card">
+            <div class="service-icon-wrap">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>
+                </svg>
+            </div>
             <p class="service-num">02</p>
             <h3 class="service-title">Diseño</h3>
             <p class="service-desc">Piezas gráficas de alto impacto visual para todo lo que tu marca necesita comunicar, desde digital hasta impreso.</p>
             <span class="service-arrow">→</span>
         </div>
+
         <div class="service-card">
+            <div class="service-icon-wrap">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                </svg>
+            </div>
             <p class="service-num">03</p>
             <h3 class="service-title">Identidad<br>Visual</h3>
             <p class="service-desc">Creamos el sistema visual completo de tu marca: logotipo, paleta, tipografía y lineamientos que te hacen inconfundible.</p>
             <span class="service-arrow">→</span>
         </div>
+
         <div class="service-card">
+            <div class="service-icon-wrap">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 2H9a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2"/><circle cx="12" cy="14" r="2"/><path d="M12 12v-1"/>
+                </svg>
+            </div>
             <p class="service-num">04</p>
             <h3 class="service-title">Grabación<br>& Edición</h3>
             <p class="service-desc">Producción audiovisual profesional: grabamos y editamos contenido que conecta con tu audiencia y eleva tu presencia digital.</p>
             <span class="service-arrow">→</span>
         </div>
+
         <div class="service-card">
+            <div class="service-icon-wrap">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>
+                </svg>
+            </div>
             <p class="service-num">05</p>
             <h3 class="service-title">Redes<br>Sociales</h3>
             <p class="service-desc">Gestión y creación de contenido estratégico para tus redes, construyendo comunidad y visibilidad para tu marca.</p>
             <span class="service-arrow">→</span>
         </div>
+
         <div class="service-card">
+            <div class="service-icon-wrap">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>
+                </svg>
+            </div>
             <p class="service-num">06</p>
             <h3 class="service-title">Páginas<br>Web</h3>
             <p class="service-desc">Sitios web elegantes, funcionales y optimizados que convierten visitantes en clientes y proyectan tu marca al siguiente nivel.</p>
             <span class="service-arrow">→</span>
         </div>
-        <div class="service-card">
+
+        <div class="service-card" style="grid-column: 2;">
+            <div class="service-icon-wrap">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/>
+                </svg>
+            </div>
             <p class="service-num">07</p>
             <h3 class="service-title">Impresión<br>Litográfica</h3>
             <p class="service-desc">Impresión litográfica y digital de alta calidad para todo tipo de material: tarjetas, brochures, pendones, empaques y más.</p>
             <span class="service-arrow">→</span>
         </div>
+
     </div>
 </section>
 
@@ -965,12 +1049,12 @@
         <div class="wa-divider"></div>
         <div class="wa-email-block">
             <p class="wa-email-label">O si prefieres,<br>escríbenos al correo</p>
-            <a href="mailto:saenzdeluxe17@gmail.com" class="wa-email-link">
+            <a href="/cdn-cgi/l/email-protection#becddfdbd0c4dadbd2cbc6db8f89fed9d3dfd7d290ddd1d3" class="wa-email-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="4" width="20" height="16" rx="2"/>
                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
                 </svg>
-                saenzdeluxe17@gmail.com
+                <span class="__cf_email__" data-cfemail="96e5f7f3f8ecf2f3fae3eef3a7a1d6f1fbf7fffab8f5f9fb">[email&#160;protected]</span>
             </a>
         </div>
     </div>
@@ -1002,7 +1086,7 @@
     <span class="wa-float-tooltip">¡Escríbenos!</span>
 </a>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -1013,12 +1097,4 @@
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.service-card, .pcard, .about-content, .contact-left, .contact-form, .wa-inner').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(40px)';
-      el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-      observer.observe(el);
-    });
-</script>
-</body>
-</html>
+    document.querySelectorAll('.service-card, .pcard, .about-content, .contact-left, .co
