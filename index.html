@@ -443,16 +443,49 @@
           background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-mid) 100%);
           position: relative;
           overflow: hidden;
+          border: 1px solid rgba(123,47,255,0.2);
         }
-        .about-img-box::after {
-          content: 'SD';
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 12rem;
-          font-weight: 600;
-          color: rgba(123,47,255,0.15);
+        .about-img-box::before {
+          content: '';
+          position: absolute; inset: 0;
+          background-image:
+            linear-gradient(rgba(123,47,255,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(123,47,255,0.06) 1px, transparent 1px);
+          background-size: 40px 40px;
+          pointer-events: none;
+        }
+        /* Logos flotantes */
+        .float-logo {
           position: absolute;
-          bottom: -20px; right: -10px;
-          line-height: 1;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+          transition: transform 0.3s;
+        }
+        .float-logo img {
+          width: 100%; height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .fl-1 { width: 42%; top: 6%;  left: 8%;  animation: floatA 5s ease-in-out infinite; }
+        .fl-2 { width: 38%; top: 5%;  right: 6%; animation: floatB 6s ease-in-out infinite; }
+        .fl-3 { width: 44%; top: 32%; left: 4%;  animation: floatC 7s ease-in-out infinite; }
+        .fl-4 { width: 36%; top: 34%; right: 8%; animation: floatA 5.5s ease-in-out infinite reverse; }
+        .fl-5 { width: 40%; bottom: 18%; left: 10%; animation: floatB 6.5s ease-in-out infinite reverse; }
+        .fl-6 { width: 38%; bottom: 6%; right: 5%; animation: floatC 4.8s ease-in-out infinite; }
+        .fl-7 { width: 34%; bottom: 4%; left: 32%; animation: floatA 7.2s ease-in-out infinite; }
+
+        @keyframes floatA {
+          0%, 100% { transform: translateY(0px) rotate(-2deg); }
+          50%       { transform: translateY(-12px) rotate(-1deg); }
+        }
+        @keyframes floatB {
+          0%, 100% { transform: translateY(0px) rotate(2deg); }
+          50%       { transform: translateY(-16px) rotate(1deg); }
+        }
+        @keyframes floatC {
+          0%, 100% { transform: translateY(-6px) rotate(-1deg); }
+          50%       { transform: translateY(8px) rotate(1.5deg); }
         }
         .about-badge {
           position: absolute;
@@ -1022,7 +1055,15 @@
 <!-- NOSOTROS -->
 <section id="nosotros">
     <div class="about-visual">
-        <div class="about-img-box"></div>
+        <div class="about-img-box">
+            <div class="float-logo fl-1"><img src="imagenes/crystals.png" alt="Saenz Crystals"/></div>
+            <div class="float-logo fl-2"><img src="imagenes/nacar.png" alt="Nácar"/></div>
+            <div class="float-logo fl-3"><img src="imagenes/decoracionesnegra.png" alt="Decoraciones"/></div>
+            <div class="float-logo fl-4"><img src="imagenes/koazu.png" alt="Koazú"/></div>
+            <div class="float-logo fl-5"><img src="imagenes/image.png" alt="LiliVal"/></div>
+            <div class="float-logo fl-6"><img src="imagenes/negra.png" alt="Saenz Airlines"/></div>
+            <div class="float-logo fl-7"><img src="imagenes/edificio.png" alt="Edificio"/></div>
+        </div>
         <div class="about-badge">
             <div class="about-badge-inner">Saenz<br>Deluxe<br>✦<br>Diseño</div>
         </div>
