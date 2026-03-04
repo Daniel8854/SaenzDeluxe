@@ -884,39 +884,23 @@
         @media (max-width: 900px) {
           nav { padding: 20px 24px; }
           .nav-links { display: none; }
-
-          #hero { padding: 110px 24px 60px; }
+          #hero { padding: 100px 24px 50px; }
           .hero-title { font-size: clamp(3rem, 10vw, 5rem); }
           .scroll-hint { left: 24px; }
-
-          #servicios { padding: 70px 24px; }
-          .services-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-          .service-card { padding: 36px 28px; }
-
-          #nosotros {
-            grid-template-columns: 1fr;
-            padding: 70px 24px;
-            gap: 50px;
-          }
+          #servicios { padding: 50px 0 50px 24px; }
+          .servicios-header { padding-right: 24px; }
+          #nosotros { grid-template-columns: 1fr; padding: 50px 24px; gap: 40px; }
           .about-img-box { aspect-ratio: 4/3; }
-
-          #video-section { padding: 70px 24px; }
-          .video-inner { grid-template-columns: 1fr; gap: 40px; }
-
-          #paginas-web { padding: 70px 24px; }
-          .web-inner { grid-template-columns: 1fr; gap: 50px; }
-
-          #portafolio { padding: 70px 24px; }
-          .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-          .pcard-1, .pcard-2 { grid-column: span 2; }
-          .pcard-3, .pcard-4, .pcard-5 { grid-column: span 1; }
-          .portfolio-header { flex-direction: column; gap: 20px; align-items: flex-start; }
-
-          #whatsapp-section { padding: 70px 24px; }
-          .wa-inner { flex-direction: column; gap: 40px; padding: 40px 28px; }
+          #video-section { padding: 50px 24px; }
+          .video-inner { grid-template-columns: 1fr; gap: 36px; }
+          #paginas-web { padding: 50px 24px; }
+          .web-inner { grid-template-columns: 1fr; gap: 40px; }
+          #portafolio { padding: 50px 0 50px 24px; }
+          .portfolio-header { flex-direction: column; gap: 16px; align-items: flex-start; padding-right: 24px; margin-bottom: 24px; }
+          #whatsapp-section { padding: 50px 24px; }
+          .wa-inner { flex-direction: column; gap: 36px; padding: 36px 24px; }
           .wa-divider { width: 100%; height: 1px; margin: 0; }
           .wa-email-block { align-items: flex-start; }
-
           footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
         }
 
@@ -927,91 +911,96 @@
           nav { padding: 18px 20px; }
           .nav-logo { font-size: 1.1rem; }
 
-          #hero {
-            padding: 90px 20px 50px;
-            min-height: auto;
-          }
+          #hero { padding: 80px 20px 40px; min-height: auto; }
           .hero-title { font-size: clamp(2.6rem, 11vw, 3.5rem); line-height: 1; }
-          .hero-subtitle { font-size: 0.72rem; }
-          .hero-cta { flex-direction: column; align-items: flex-start; gap: 16px; }
-          .btn-primary { width: 100%; text-align: center; padding: 16px 24px; box-sizing: border-box; }
+          .hero-subtitle { font-size: 0.72rem; margin-top: 20px; }
+          .hero-cta { flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 32px; }
+          .btn-primary { width: 100%; text-align: center; padding: 14px 24px; box-sizing: border-box; }
           #hero::after { display: none; }
           .scroll-hint { display: none; }
 
-          .marquee-item { font-size: 0.9rem; }
+          .marquee-wrap { padding: 14px 0; }
+          .marquee-item { font-size: 0.85rem; }
 
-          #servicios { padding: 60px 0 60px 20px; }
-          .servicios-header { padding-right: 20px; }
+          /* Servicios — carrusel táctil */
+          #servicios { padding: 44px 0 44px 20px; }
+          .servicios-header { padding-right: 20px; margin-bottom: 24px; }
           .carousel-viewport { overflow: visible; }
           .services-grid {
-            overflow-x: auto;
-            overflow-y: visible;
+            overflow-x: auto; overflow-y: visible;
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             transform: none !important;
             transition: none !important;
+            gap: 12px !important;
           }
           .services-grid::-webkit-scrollbar { display: none; }
           .service-card {
-            min-width: 78vw !important;
-            max-width: 78vw !important;
-            padding: 32px 24px !important;
-            scroll-snap-align: start;
-            box-sizing: border-box;
+            min-width: 78vw !important; max-width: 78vw !important;
+            padding: 28px 22px !important;
+            scroll-snap-align: start; box-sizing: border-box;
           }
           .carr-btn { display: none; }
-          .service-title { font-size: 1.6rem; }
+          .service-title { font-size: 1.5rem; }
           .service-desc { font-size: 0.72rem; word-break: break-word; }
 
-          #nosotros { padding: 60px 20px; gap: 40px; }
+          /* Nosotros */
+          #nosotros { padding: 44px 20px; gap: 32px; }
           .about-img-box { aspect-ratio: 1/1; }
-          .about-badge { width: 100px; height: 100px; bottom: -16px; right: -12px; }
+          .about-badge { width: 90px; height: 90px; bottom: -14px; right: -10px; }
           .about-title { font-size: clamp(2rem, 8vw, 3rem); }
-          .about-stats { grid-template-columns: repeat(3,1fr); gap: 16px; }
-          .stat-num { font-size: 2rem; }
+          .about-stats { grid-template-columns: repeat(3,1fr); gap: 12px; }
+          .stat-num { font-size: 1.8rem; }
 
-          #video-section { padding: 60px 20px; }
+          /* Video */
+          #video-section { padding: 44px 20px; }
           .video-title { font-size: clamp(2rem, 8vw, 3rem); }
-          .video-inner { gap: 32px; }
+          .video-inner { gap: 28px; }
 
-          #paginas-web { padding: 60px 20px; }
+          /* Páginas web */
+          #paginas-web { padding: 44px 20px; }
           .web-title { font-size: clamp(1.9rem, 8vw, 2.8rem); }
-          .web-inner { gap: 36px; }
-          .web-screen { padding: 18px; min-height: 220px; }
-
-          #portafolio { padding: 60px 20px; }
-          .portfolio-grid {
-            grid-template-columns: 1fr !important;
-            gap: 10px;
-          }
-          .pcard-1, .pcard-2, .pcard-3, .pcard-4, .pcard-5 {
-            grid-column: span 1 !important;
-            grid-row: auto !important;
-            aspect-ratio: 4/3;
-          }
-          .portfolio-title { font-size: clamp(2rem, 8vw, 3rem); }
-
-          #whatsapp-section { padding: 60px 20px; }
-          .wa-inner { padding: 32px 20px; gap: 32px; }
-          .wa-title { font-size: clamp(2rem, 8vw, 3rem); }
-          .wa-btn { padding: 16px 28px; font-size: 0.65rem; width: 100%; justify-content: center; box-sizing: border-box; }
-          .wa-email-link { font-size: 0.95rem; }
-
-          .section-label { font-size: 0.55rem; }
-
-          footer { padding: 36px 20px 100px; gap: 18px; }
-          .footer-socials { flex-wrap: wrap; justify-content: center; gap: 20px; }
-          .footer-socials a { font-size: 0.75rem; }
-
-          .wa-float { width: 52px; height: 52px; bottom: 28px; right: 20px; }
-
-          /* Mockup web más compacto en móvil */
-          #paginas-web .web-inner { gap: 28px; }
+          .web-inner { gap: 28px; }
           .web-mockup { max-width: 88%; margin: 0 auto; }
           .web-screen { min-height: 150px; padding: 12px; }
           .web-screen-hero { padding: 14px; margin-bottom: 10px; }
           .web-screen-card { height: 36px; }
+
+          /* Portafolio — carrusel táctil */
+          #portafolio { padding: 44px 0 44px 20px; }
+          .portfolio-header { flex-direction: column; gap: 14px; align-items: flex-start; padding-right: 20px; margin-bottom: 24px; }
+          .portfolio-title { font-size: clamp(2rem, 8vw, 3rem); }
+          .portfolio-grid {
+            display: flex !important;
+            overflow-x: auto; overflow-y: visible;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            gap: 12px !important;
+            padding-right: 20px;
+          }
+          .portfolio-grid::-webkit-scrollbar { display: none; }
+          .pcard-1, .pcard-2, .pcard-3, .pcard-4, .pcard-5 {
+            min-width: 78vw !important; max-width: 78vw !important;
+            grid-column: unset !important; grid-row: unset !important;
+            aspect-ratio: 4/3; flex-shrink: 0;
+            scroll-snap-align: start;
+          }
+
+          /* WhatsApp */
+          #whatsapp-section { padding: 44px 20px; }
+          .wa-inner { padding: 28px 18px; gap: 28px; }
+          .wa-title { font-size: clamp(2rem, 8vw, 3rem); }
+          .wa-btn { padding: 14px 24px; font-size: 0.65rem; width: 100%; justify-content: center; box-sizing: border-box; }
+          .wa-email-link { font-size: 0.92rem; }
+
+          .section-label { font-size: 0.55rem; }
+
+          footer { padding: 32px 20px 100px; gap: 16px; }
+          .footer-socials { flex-wrap: wrap; justify-content: center; gap: 20px; }
+          .footer-socials a { font-size: 0.7rem; }
+          .wa-float { width: 52px; height: 52px; bottom: 28px; right: 20px; }
         }
 
         /* ── WHATSAPP SECTION ── */
