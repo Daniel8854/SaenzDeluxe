@@ -848,23 +848,105 @@
         .footer-socials a:hover { color: var(--gold); }
 
         /* ── MOBILE ── */
+        /* ══════════════════════════════
+           RESPONSIVE — TABLET (≤900px)
+        ══════════════════════════════ */
         @media (max-width: 900px) {
-          nav { padding: 22px 24px; }
+          nav { padding: 20px 24px; }
           .nav-links { display: none; }
-          #hero { padding: 120px 24px 60px; }
+
+          #hero { padding: 110px 24px 60px; }
+          .hero-title { font-size: clamp(3rem, 10vw, 5rem); }
           .scroll-hint { left: 24px; }
-          #servicios { padding: 80px 24px; }
-          .services-grid { grid-template-columns: 1fr; }
-          #nosotros { grid-template-columns: 1fr; padding: 80px 24px; }
-          #portafolio { padding: 80px 24px; }
-          .portfolio-grid { grid-template-columns: 1fr 1fr; }
+
+          #servicios { padding: 70px 24px; }
+          .services-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+          .service-card { padding: 36px 28px; }
+
+          #nosotros {
+            grid-template-columns: 1fr;
+            padding: 70px 24px;
+            gap: 50px;
+          }
+          .about-img-box { aspect-ratio: 4/3; }
+
+          #video-section { padding: 70px 24px; }
+          .video-inner { grid-template-columns: 1fr; gap: 40px; }
+
+          #paginas-web { padding: 70px 24px; }
+          .web-inner { grid-template-columns: 1fr; gap: 50px; }
+
+          #portafolio { padding: 70px 24px; }
+          .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
           .pcard-1, .pcard-2 { grid-column: span 2; }
           .pcard-3, .pcard-4, .pcard-5 { grid-column: span 1; }
           .portfolio-header { flex-direction: column; gap: 20px; align-items: flex-start; }
-          #contacto { grid-template-columns: 1fr; padding: 80px 24px; }
-          footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
-          #whatsapp-section { padding: 80px 24px; }
-          .wa-inner { flex-direction: column; gap: 40px; }
+
+          #whatsapp-section { padding: 70px 24px; }
+          .wa-inner { flex-direction: column; gap: 40px; padding: 40px 28px; }
+          .wa-divider { width: 100%; height: 1px; margin: 0; }
+          .wa-email-block { align-items: flex-start; }
+
+          footer { flex-direction: column; gap: 20px; text-align: center; padding: 40px 24px; }
+        }
+
+        /* ══════════════════════════════
+           RESPONSIVE — MÓVIL (≤600px)
+        ══════════════════════════════ */
+        @media (max-width: 600px) {
+          nav { padding: 18px 20px; }
+          .nav-logo { font-size: 1.1rem; }
+
+          #hero { padding: 100px 20px 50px; }
+          .hero-title { font-size: clamp(2.6rem, 11vw, 3.5rem); line-height: 1; }
+          .hero-subtitle { font-size: 0.72rem; }
+          .hero-cta { flex-direction: column; align-items: flex-start; gap: 16px; }
+          .btn-primary { width: 100%; text-align: center; padding: 16px 24px; }
+          .scroll-hint { display: none; }
+
+          .marquee-item { font-size: 0.9rem; }
+
+          #servicios { padding: 60px 20px; }
+          .services-grid { grid-template-columns: 1fr; gap: 12px; }
+          .service-card { padding: 32px 24px; }
+          .service-title { font-size: 1.6rem; }
+
+          #nosotros { padding: 60px 20px; gap: 40px; }
+          .about-img-box { aspect-ratio: 1/1; }
+          .about-badge { width: 100px; height: 100px; bottom: -16px; right: -12px; }
+          .about-title { font-size: clamp(2rem, 8vw, 3rem); }
+          .about-stats { grid-template-columns: repeat(3,1fr); gap: 16px; }
+          .stat-num { font-size: 2rem; }
+
+          #video-section { padding: 60px 20px; }
+          .video-title { font-size: clamp(2rem, 8vw, 3rem); }
+          .video-inner { gap: 32px; }
+
+          #paginas-web { padding: 60px 20px; }
+          .web-title { font-size: clamp(1.9rem, 8vw, 2.8rem); }
+          .web-inner { gap: 36px; }
+          .web-screen { padding: 18px; min-height: 220px; }
+
+          #portafolio { padding: 60px 20px; }
+          .portfolio-grid { grid-template-columns: 1fr; gap: 10px; }
+          .pcard-1, .pcard-2, .pcard-3, .pcard-4, .pcard-5 {
+            grid-column: span 1;
+            aspect-ratio: 4/3;
+          }
+          .portfolio-title { font-size: clamp(2rem, 8vw, 3rem); }
+
+          #whatsapp-section { padding: 60px 20px; }
+          .wa-inner { padding: 32px 20px; gap: 32px; }
+          .wa-title { font-size: clamp(2rem, 8vw, 3rem); }
+          .wa-btn { padding: 16px 28px; font-size: 0.65rem; }
+          .wa-email-link { font-size: 0.95rem; }
+
+          .section-label { font-size: 0.55rem; }
+
+          footer { padding: 36px 20px; gap: 18px; }
+          .footer-socials { flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+          .wa-float { width: 52px; height: 52px; bottom: 24px; right: 20px; }
         }
 
         /* ── WHATSAPP SECTION ── */
