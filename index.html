@@ -250,15 +250,15 @@
           transition: border-color 0.4s, transform 0.3s;
           background-color: rgba(8,8,16,0.85);
         }
-        /* Textura geométrica dorada */
+        /* Textura geométrica morada */
         .service-card::after {
           content: '';
           position: absolute; inset: 0;
           background-image:
-            linear-gradient(rgba(201,168,76,0.045) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(201,168,76,0.045) 1px, transparent 1px),
-            linear-gradient(135deg, rgba(201,168,76,0.03) 1px, transparent 1px),
-            linear-gradient(45deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+            linear-gradient(rgba(123,47,255,0.08) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(123,47,255,0.08) 1px, transparent 1px),
+            linear-gradient(135deg, rgba(123,47,255,0.05) 1px, transparent 1px),
+            linear-gradient(45deg, rgba(123,47,255,0.05) 1px, transparent 1px);
           background-size: 32px 32px, 32px 32px, 32px 32px, 32px 32px;
           pointer-events: none;
           z-index: 0;
@@ -277,7 +277,7 @@
         }
         .service-card:hover::before { height: 100%; }
         .service-card:hover {
-          border-color: rgba(201,168,76,0.35);
+          border-color: rgba(123,47,255,0.5);
           transform: translateY(-4px);
         }
         /* Asegura que el contenido quede encima de la textura */
