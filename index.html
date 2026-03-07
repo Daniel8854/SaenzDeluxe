@@ -147,6 +147,30 @@
         }
         .nav-phone svg { color: var(--gold); flex-shrink: 0; }
         .nav-phone:hover { opacity: 1; color: var(--gold); }
+        .nav-web-btn {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 0.68rem;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          text-decoration: none;
+          color: var(--white);
+          background: rgba(123,47,255,0.15);
+          border: 1px solid rgba(123,47,255,0.7);
+          padding: 11px 20px;
+          display: flex; align-items: center; gap: 10px;
+          transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+          box-shadow: 0 0 18px rgba(123,47,255,0.2), inset 0 0 12px rgba(123,47,255,0.08);
+          white-space: nowrap;
+          border-radius: 0;
+        }
+        .nav-web-btn svg { transition: transform 0.3s; flex-shrink: 0; }
+        .nav-web-btn:hover {
+          background: rgba(123,47,255,0.3);
+          box-shadow: 0 0 28px rgba(123,47,255,0.5), inset 0 0 16px rgba(123,47,255,0.15);
+          transform: translateY(-2px);
+        }
+        .nav-web-btn:hover svg { transform: translateX(4px); }
 
         /* ── HERO ── */
         #hero {
@@ -546,12 +570,12 @@
           background-size: 40px 40px;
           pointer-events: none;
         }
-        /* Logos flotantes */
+        /* Logos flotantes — 7 logos en cuadrícula sin solapamiento */
         .float-logo {
           position: absolute;
-          border-radius: 12px;
+          border-radius: 10px;
           overflow: hidden;
-          box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+          box-shadow: 0 8px 28px rgba(0,0,0,0.55);
           transition: transform 0.3s;
         }
         .float-logo img {
@@ -559,48 +583,53 @@
           object-fit: cover;
           display: block;
         }
-        .fl-1 { width: 42%; top: 6%;  left: 8%;  animation: floatA 5s ease-in-out infinite; }
-        .fl-2 { width: 38%; top: 5%;  right: 6%; animation: floatB 6s ease-in-out infinite; }
-        .fl-3 { width: 44%; top: 32%; left: 4%;  animation: floatC 7s ease-in-out infinite; }
-        .fl-4 { width: 36%; top: 34%; right: 8%; animation: floatA 5.5s ease-in-out infinite reverse; }
-        .fl-5 { width: 40%; bottom: 18%; left: 10%; animation: floatB 6.5s ease-in-out infinite reverse; }
-        .fl-6 { width: 38%; bottom: 6%; right: 5%; animation: floatC 4.8s ease-in-out infinite; }
-        .fl-7 { width: 34%; bottom: 4%; left: 32%; animation: floatA 7.2s ease-in-out infinite; }
+        /* Fila 1 */
+        .fl-1 { width: 44%; top: 4%;   left: 4%;   animation: floatA 5s ease-in-out infinite; }
+        .fl-2 { width: 44%; top: 4%;   right: 4%;  animation: floatB 6s ease-in-out infinite; }
+        /* Fila 2 */
+        .fl-3 { width: 44%; top: 36%;  left: 4%;   animation: floatC 7s ease-in-out infinite; }
+        .fl-4 { width: 44%; top: 36%;  right: 4%;  animation: floatA 5.5s ease-in-out infinite reverse; }
+        /* Fila 3 */
+        .fl-5 { width: 44%; bottom: 4%; left: 4%;  animation: floatB 6.5s ease-in-out infinite reverse; }
+        .fl-6 { width: 44%; bottom: 4%; right: 4%; animation: floatC 4.8s ease-in-out infinite; }
+        /* Centro */
+        .fl-7 { width: 34%; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-1deg); animation: floatCenter 6s ease-in-out infinite; z-index: 2; }
 
         @keyframes floatA {
-          0%, 100% { transform: translateY(0px) rotate(-2deg); }
-          50%       { transform: translateY(-12px) rotate(-1deg); }
+          0%, 100% { transform: translateY(0px) rotate(-1.5deg); }
+          50%       { transform: translateY(-10px) rotate(-0.5deg); }
         }
         @keyframes floatB {
-          0%, 100% { transform: translateY(0px) rotate(2deg); }
-          50%       { transform: translateY(-16px) rotate(1deg); }
+          0%, 100% { transform: translateY(0px) rotate(1.5deg); }
+          50%       { transform: translateY(-14px) rotate(0.5deg); }
         }
         @keyframes floatC {
-          0%, 100% { transform: translateY(-6px) rotate(-1deg); }
-          50%       { transform: translateY(8px) rotate(1.5deg); }
+          0%, 100% { transform: translateY(-5px) rotate(-1deg); }
+          50%       { transform: translateY(7px) rotate(1deg); }
         }
+        @keyframes floatCenter {
+          0%, 100% { transform: translate(-50%, -50%) rotate(-1deg) translateY(0px); }
+          50%       { transform: translate(-50%, -50%) rotate(1deg) translateY(-8px); }
+        }
+        /* Badge elegante en vez de rueda */
         .about-badge {
           position: absolute;
-          bottom: -24px; right: -24px;
-          width: 130px; height: 130px;
-          background: var(--gold);
+          bottom: -20px; right: -20px;
+          width: 110px; height: 110px;
+          background: linear-gradient(135deg, var(--gold) 0%, #c9a84c 100%);
           border-radius: 50%;
           display: flex; flex-direction: column;
           align-items: center; justify-content: center;
           text-align: center;
-          animation: spin 20s linear infinite;
-        }
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
+          box-shadow: 0 8px 30px rgba(212,175,55,0.4);
         }
         .about-badge-inner {
-          font-size: 0.5rem;
-          letter-spacing: 0.2em;
+          font-size: 0.48rem;
+          letter-spacing: 0.18em;
           text-transform: uppercase;
           color: var(--black);
           font-weight: 700;
-          line-height: 1.8;
+          line-height: 2;
         }
         .about-content { }
         .about-title {
@@ -642,133 +671,107 @@
 
         /* ── PAGINAS WEB ── */
         #paginas-web {
-          padding: 120px 60px;
+          padding: 0;
           position: relative;
           overflow: hidden;
+          background: linear-gradient(135deg, #0a0015 0%, #1a0535 50%, #0d0020 100%);
+          border-top: 1px solid rgba(123,47,255,0.2);
+          border-bottom: 1px solid rgba(123,47,255,0.2);
         }
         #paginas-web::before {
           content: '';
-          position: absolute; left: -200px; top: 50%;
-          transform: translateY(-50%);
-          width: 600px; height: 600px;
+          position: absolute; right: -100px; top: -100px;
+          width: 700px; height: 700px;
           border-radius: 50%;
-          background: radial-gradient(circle, rgba(61,26,110,0.35) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(123,47,255,0.2) 0%, transparent 65%);
+          pointer-events: none;
+        }
+        #paginas-web::after {
+          content: '';
+          position: absolute; left: -100px; bottom: -100px;
+          width: 500px; height: 500px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(61,26,110,0.25) 0%, transparent 65%);
           pointer-events: none;
         }
         .web-inner {
           display: grid;
-          grid-template-columns: 1.2fr 1fr;
-          gap: 80px;
-          align-items: center;
+          grid-template-columns: 1fr 1fr;
+          min-height: 600px;
           position: relative; z-index: 1;
         }
-        /* Mockup navegador */
-        .web-mockup { position: relative; }
-        .web-browser {
-          border-radius: 12px;
-          overflow: hidden;
-          border: 1px solid rgba(123,47,255,0.3);
-          box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-          animation: floatB 6s ease-in-out infinite;
+        .web-content {
+          padding: 100px 70px;
+          display: flex; flex-direction: column; justify-content: center;
+          border-right: 1px solid rgba(123,47,255,0.15);
         }
-        .web-browser-bar {
-          background: rgba(26,10,46,0.95);
-          padding: 12px 16px;
-          display: flex; align-items: center; gap: 8px;
-          border-bottom: 1px solid rgba(123,47,255,0.2);
-        }
-        .web-dot {
-          width: 10px; height: 10px; border-radius: 50%;
-          background: rgba(123,47,255,0.4);
-          display: inline-block;
-        }
-        .web-dot:first-child { background: rgba(255,100,100,0.5); }
-        .web-dot:nth-child(2) { background: rgba(255,200,50,0.5); }
-        .web-dot:nth-child(3) { background: rgba(50,200,100,0.5); }
-        .web-url {
-          margin-left: 12px;
-          background: rgba(123,47,255,0.1);
-          border: 1px solid rgba(123,47,255,0.2);
-          border-radius: 20px;
-          padding: 4px 16px;
-          font-size: 0.62rem;
-          letter-spacing: 0.1em;
-          color: var(--gray);
-          flex: 1; text-align: center;
-        }
-        .web-screen {
-          background: linear-gradient(160deg, #0d0020 0%, #1a0a2e 50%, #0d0520 100%);
-          padding: 28px;
-          min-height: 320px;
-        }
-        .web-screen-hero {
-          background: linear-gradient(135deg, rgba(123,47,255,0.15), rgba(61,26,110,0.2));
-          border: 1px solid rgba(123,47,255,0.15);
-          border-radius: 8px;
-          padding: 24px;
-          margin-bottom: 16px;
-        }
-        .web-screen-nav {
-          height: 6px; width: 70%; background: rgba(123,47,255,0.25);
-          border-radius: 3px; margin-bottom: 20px;
-        }
-        .web-screen-title {
-          height: 14px; width: 55%; background: rgba(245,240,255,0.2);
-          border-radius: 3px; margin-bottom: 10px;
-        }
-        .web-screen-subtitle {
-          height: 8px; width: 80%; background: rgba(245,240,255,0.08);
-          border-radius: 3px; margin-bottom: 20px;
-        }
-        .web-screen-btn {
-          height: 24px; width: 30%; background: rgba(123,47,255,0.5);
-          border-radius: 4px;
-        }
-        .web-screen-cards {
-          display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
-        }
-        .web-screen-card {
-          height: 60px;
-          background: rgba(123,47,255,0.1);
-          border: 1px solid rgba(123,47,255,0.15);
-          border-radius: 6px;
-        }
-        .web-glow {
-          position: absolute;
-          width: 80%; height: 40px;
-          background: rgba(123,47,255,0.3);
-          bottom: -20px; left: 10%;
-          border-radius: 50%;
-          filter: blur(20px);
-        }
-        /* Contenido */
         .web-title {
           font-family: 'Cormorant Garamond', serif;
-          font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+          font-size: clamp(2.8rem, 4vw, 5rem);
           font-weight: 300;
-          line-height: 1.1;
-          margin-bottom: 24px;
+          line-height: 1.05;
+          margin-bottom: 28px;
         }
         .web-title em { font-style: italic; color: var(--purple-soft); }
+        .web-title strong {
+          font-weight: 600;
+          display: block;
+          background: linear-gradient(90deg, #fff 0%, rgba(180,130,255,0.9) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
         .web-desc {
           font-size: 0.76rem;
-          line-height: 2.1;
+          line-height: 2.2;
           color: var(--gray);
-          margin-bottom: 32px;
+          margin-bottom: 40px;
+          max-width: 420px;
         }
-        .web-features {
-          display: flex; flex-direction: column; gap: 14px;
+        .web-cta-group { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+        .web-cta-note {
+          font-size: 0.62rem;
+          letter-spacing: 0.15em;
+          color: rgba(255,255,255,0.35);
+          text-transform: uppercase;
         }
-        .web-feature {
-          display: flex; align-items: center; gap: 14px;
-          font-size: 0.74rem;
+        .web-mockup {
+          padding: 80px 60px;
+          display: flex; flex-direction: column; justify-content: center; gap: 16px;
+          position: relative;
+        }
+        .web-feat-item {
+          display: flex; align-items: flex-start; gap: 20px;
+          padding: 22px 26px;
+          border: 1px solid rgba(123,47,255,0.12);
+          background: rgba(123,47,255,0.04);
+          transition: border-color 0.3s, background 0.3s;
+        }
+        .web-feat-item:hover {
+          border-color: rgba(123,47,255,0.4);
+          background: rgba(123,47,255,0.1);
+        }
+        .web-feat-num {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 2rem;
+          font-weight: 300;
+          color: rgba(123,47,255,0.35);
+          line-height: 1;
+          flex-shrink: 0;
+          width: 32px;
+        }
+        .web-feat-text h4 {
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
           color: var(--white);
-          letter-spacing: 0.05em;
+          margin-bottom: 5px;
         }
-        .web-feature-icon {
-          color: var(--gold);
-          font-size: 0.6rem;
-        }
+        .web-feat-text p { font-size: 0.67rem; line-height: 1.8; color: var(--gray); }
+        .web-features { display: flex; flex-direction: column; gap: 14px; }
+        .web-feature { display: flex; align-items: center; gap: 14px; font-size: 0.74rem; color: var(--white); letter-spacing: 0.05em; }
+        .web-feature-icon { color: var(--gold); font-size: 0.6rem; }
 
         /* ── PORTFOLIO ── */
         #portafolio {
@@ -959,8 +962,10 @@
           .about-img-box { aspect-ratio: 4/3; }
           #video-section { padding: 50px 24px; }
           .video-inner { grid-template-columns: 1fr; gap: 36px; }
-          #paginas-web { padding: 50px 24px; }
-          .web-inner { grid-template-columns: 1fr; gap: 40px; }
+          #paginas-web { padding: 0; }
+          .web-inner { grid-template-columns: 1fr; min-height: auto; }
+          .web-content { padding: 50px 24px; border-right: none; border-bottom: 1px solid rgba(123,47,255,0.15); }
+          .web-mockup { padding: 40px 24px; gap: 12px; }
           #portafolio { padding: 50px 0 50px 24px; }
           .portfolio-header { flex-direction: column; gap: 16px; align-items: flex-start; padding-right: 24px; margin-bottom: 24px; }
           #whatsapp-section { padding: 50px 24px; }
@@ -977,6 +982,7 @@
           nav { padding: 18px 20px; }
           .nav-logo { font-size: 1.1rem; }
           .nav-phone { display: none; }
+          .nav-web-btn { display: none; }
 
           #hero { padding: 80px 20px 40px; min-height: auto; }
           .hero-title { font-size: clamp(2.6rem, 11vw, 3.5rem); line-height: 1; }
@@ -1026,13 +1032,13 @@
           .video-inner { gap: 28px; }
 
           /* Páginas web */
-          #paginas-web { padding: 44px 20px; }
-          .web-title { font-size: clamp(1.9rem, 8vw, 2.8rem); }
-          .web-inner { gap: 28px; }
-          .web-mockup { max-width: 88%; margin: 0 auto; }
-          .web-screen { min-height: 150px; padding: 12px; }
-          .web-screen-hero { padding: 14px; margin-bottom: 10px; }
-          .web-screen-card { height: 36px; }
+          #paginas-web { padding: 0; }
+          .web-content { padding: 44px 20px; }
+          .web-title { font-size: clamp(2rem, 8vw, 2.8rem); }
+          .web-inner { gap: 0; }
+          .web-mockup { padding: 32px 20px; gap: 10px; }
+          .web-feat-item { padding: 16px 18px; gap: 14px; }
+          .web-cta-group { flex-direction: column; align-items: flex-start; gap: 12px; }
 
           /* Portafolio — carrusel táctil */
           #portafolio { padding: 44px 0 44px 20px; }
@@ -1253,6 +1259,10 @@
         </svg>
         +57 321 893 8749
     </a>
+    <a href="#paginas-web" class="nav-web-btn">
+        Quiero mi página web
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
     <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#nosotros">Nosotros</a></li>
@@ -1410,7 +1420,7 @@
             <div class="float-logo fl-4"><img src="imagenes/image.png" alt="LiliVal"/></div>
             <div class="float-logo fl-5"><img src="imagenes/koazu.png" alt="Koazú"/></div>
             <div class="float-logo fl-6"><img src="imagenes/dicentra.png" alt="Dicentra"/></div>
-            <div class="float-logo fl-7"><img src="imagenes/edificio.png" alt="Edificio"/></div>
+            <div class="float-logo fl-7"><img src="imagenes/saenz.png" alt="Saenz"/></div>
         </div>
         <div class="about-badge">
             <div class="about-badge-inner">Saenz<br>Deluxe<br>✦<br>Diseño</div>
@@ -1478,51 +1488,47 @@
 <!-- PAGINAS WEB -->
 <section id="paginas-web">
     <div class="web-inner">
-        <div class="web-mockup">
-            <div class="web-browser">
-                <div class="web-browser-bar">
-                    <span class="web-dot"></span><span class="web-dot"></span><span class="web-dot"></span>
-                    <div class="web-url">saenzdeluxe.com</div>
-                </div>
-                <div class="web-screen">
-                    <div class="web-screen-hero">
-                        <div class="web-screen-nav"></div>
-                        <div class="web-screen-title"></div>
-                        <div class="web-screen-subtitle"></div>
-                        <div class="web-screen-btn"></div>
-                    </div>
-                    <div class="web-screen-cards">
-                        <div class="web-screen-card"></div>
-                        <div class="web-screen-card"></div>
-                        <div class="web-screen-card"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="web-glow"></div>
-        </div>
         <div class="web-content">
             <p class="section-label">Páginas Web</p>
-            <h2 class="web-title">Tu marca merece<br>una presencia<br><em>digital premium.</em></h2>
-            <p class="web-desc">Diseñamos y desarrollamos sitios web que no solo se ven increíbles — convierten visitantes en clientes. Cada página es única, optimizada y construida para reflejar la esencia de tu marca.</p>
-            <div class="web-features">
-                <div class="web-feature">
-                    <span class="web-feature-icon">✦</span>
-                    <span>Diseño 100% personalizado</span>
-                </div>
-                <div class="web-feature">
-                    <span class="web-feature-icon">✦</span>
-                    <span>Optimizado para móviles</span>
-                </div>
-                <div class="web-feature">
-                    <span class="web-feature-icon">✦</span>
-                    <span>Carga rápida y SEO básico</span>
-                </div>
-                <div class="web-feature">
-                    <span class="web-feature-icon">✦</span>
-                    <span>Entrega en tiempo acordado</span>
+            <h2 class="web-title">
+                <strong>Tu negocio necesita</strong>
+                una página web que<br><em>venda por ti.</em>
+            </h2>
+            <p class="web-desc">Diseñamos sitios que impresionan desde el primer segundo — rápidos, elegantes y construidos para convertir visitantes en clientes reales. No plantillas, no genérico. Tu marca, tu identidad.</p>
+            <div class="web-cta-group">
+                <a href="https://wa.me/573218938749?text=Hola%20Saenz%20Deluxe%2C%20quiero%20cotizar%20una%20p%C3%A1gina%20web." target="_blank" rel="noopener noreferrer" class="btn-primary">Quiero mi página web</a>
+                <span class="web-cta-note">Respuesta en menos de 24h</span>
+            </div>
+        </div>
+        <div class="web-mockup">
+            <div class="web-feat-item">
+                <span class="web-feat-num">01</span>
+                <div class="web-feat-text">
+                    <h4>Diseño único y exclusivo</h4>
+                    <p>Cada sitio es creado desde cero para tu marca. Sin plantillas, sin copias.</p>
                 </div>
             </div>
-            <a href="#whatsapp-section" class="btn-primary" style="margin-top:40px; display:inline-block;">Quiero mi página web</a>
+            <div class="web-feat-item">
+                <span class="web-feat-num">02</span>
+                <div class="web-feat-text">
+                    <h4>Optimizado para móvil y SEO</h4>
+                    <p>Se ve perfecto en cualquier pantalla y está preparado para aparecer en Google.</p>
+                </div>
+            </div>
+            <div class="web-feat-item">
+                <span class="web-feat-num">03</span>
+                <div class="web-feat-text">
+                    <h4>Rápido y profesional</h4>
+                    <p>Carga en segundos. Transmite confianza y profesionalismo desde el primer clic.</p>
+                </div>
+            </div>
+            <div class="web-feat-item">
+                <span class="web-feat-num">04</span>
+                <div class="web-feat-text">
+                    <h4>Entrega garantizada</h4>
+                    <p>Tiempos de entrega acordados y acompañamiento durante todo el proceso.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
