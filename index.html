@@ -620,25 +620,7 @@
           50%       { transform: translateY(7px) rotate(1deg); }
         }
         /* Badge elegante en vez de rueda */
-        .about-badge {
-          position: absolute;
-          bottom: -20px; right: -20px;
-          width: 110px; height: 110px;
-          background: linear-gradient(135deg, var(--gold) 0%, #c9a84c 100%);
-          border-radius: 50%;
-          display: flex; flex-direction: column;
-          align-items: center; justify-content: center;
-          text-align: center;
-          box-shadow: 0 8px 30px rgba(212,175,55,0.4);
-        }
-        .about-badge-inner {
-          font-size: 0.48rem;
-          letter-spacing: 0.18em;
-          text-transform: uppercase;
-          color: var(--black);
-          font-weight: 700;
-          line-height: 2;
-        }
+        /* badge removed */
         .about-content { }
         .about-title {
           font-family: 'Cormorant Garamond', serif;
@@ -1430,9 +1412,6 @@
             <div class="float-logo fl-6"><img src="imagenes/dicentra.png" alt="Dicentra"/></div>
             <div class="float-logo fl-7"><img src="imagenes/saenz.png" alt="Saenz"/></div>
         </div>
-        <div class="about-badge">
-            <div class="about-badge-inner">Saenz<br>Deluxe<br>✦<br>Diseño</div>
-        </div>
     </div>
     <div class="about-content">
         <p class="section-label">Nosotros</p>
@@ -1665,9 +1644,10 @@
     startAuto();
     window.addEventListener('resize', () => { goTo(0); });
 
-    // ── LOGO ROTATION (4 a la vez: 2 izq + 2 der) ──
+    // ── LOGO ROTATION (4 aleatorios a la vez: 2 izq + 2 der) ──
     const logos = document.querySelectorAll('.float-logo');
-    const anims = ['float-anim', 'float-anim-b', 'float-anim-c', 'float-anim'];
+    const anims = ['float-anim', 'float-anim-b', 'float-anim-c', 'float-anim-b'];
+    const total = logos.length; // 7
 
     const positions = [
       { top: '10%',  left: '4%',  right: 'auto' },
@@ -1676,14 +1656,14 @@
       { top: '55%',  right: '4%', left: 'auto'  },
     ];
 
-    const groups = [
-      [0, 1, 2, 3],
-      [4, 5, 0, 1],
-      [2, 3, 4, 5],
-      [1, 4, 3, 0],
-    ];
-
-    let currentGroup = 0;
+    function getRandom4() {
+      const arr = Array.from({length: total}, (_, i) => i);
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr.slice(0, 4);
+    }
 
     function applyPosition(el, pos) {
       el.style.top    = pos.top;
@@ -1692,9 +1672,9 @@
       el.style.bottom = 'auto';
     }
 
-    function showGroup(idx) {
+    function showRandom() {
       logos.forEach(l => l.classList.remove('visible', ...anims));
-      const group = groups[idx % groups.length];
+      const group = getRandom4();
       group.forEach((logoIdx, posIdx) => {
         const el = logos[logoIdx];
         applyPosition(el, positions[posIdx]);
@@ -1703,8 +1683,8 @@
       });
     }
 
-    showGroup(0);
-    setInterval(() => { currentGroup++; showGroup(currentGroup); }, 3500);
+    showRandom();
+    setInterval(showRandom, 3500);
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
