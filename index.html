@@ -555,7 +555,7 @@
           position: relative;
         }
         .about-img-box {
-          width: 100%; aspect-ratio: 3/4;
+          width: 100%; aspect-ratio: 2/3;
           background: linear-gradient(135deg, var(--purple-deep) 0%, var(--purple-mid) 100%);
           position: relative;
           overflow: hidden;
@@ -570,7 +570,7 @@
           background-size: 40px 40px;
           pointer-events: none;
         }
-        /* Logos flotantes — 7 logos en cuadrícula sin solapamiento */
+        /* 6 logos en cuadrícula 2x3 sin solapamiento */
         .float-logo {
           position: absolute;
           border-radius: 10px;
@@ -583,17 +583,29 @@
           object-fit: cover;
           display: block;
         }
-        /* Fila 1 */
-        .fl-1 { width: 44%; top: 4%;   left: 4%;   animation: floatA 5s ease-in-out infinite; }
-        .fl-2 { width: 44%; top: 4%;   right: 4%;  animation: floatB 6s ease-in-out infinite; }
-        /* Fila 2 */
-        .fl-3 { width: 44%; top: 36%;  left: 4%;   animation: floatC 7s ease-in-out infinite; }
-        .fl-4 { width: 44%; top: 36%;  right: 4%;  animation: floatA 5.5s ease-in-out infinite reverse; }
-        /* Fila 3 */
-        .fl-5 { width: 44%; bottom: 4%; left: 4%;  animation: floatB 6.5s ease-in-out infinite reverse; }
-        .fl-6 { width: 44%; bottom: 4%; right: 4%; animation: floatC 4.8s ease-in-out infinite; }
-        /* Centro */
-        .fl-7 { width: 34%; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-1deg); animation: floatCenter 6s ease-in-out infinite; z-index: 2; }
+        .fl-1 { width: 43%; top: 12%;  left: 4%;  }
+        .fl-2 { width: 43%; top: 55%;  left: 4%;  }
+        .fl-3 { width: 43%; top: 12%;  right: 4%; }
+        .fl-4 { width: 43%; top: 55%;  right: 4%; }
+        .fl-5 { width: 43%; top: 12%;  left: 4%;  }
+        .fl-6 { width: 43%; top: 55%;  left: 4%;  }
+
+        .float-logo {
+          position: absolute;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 8px 28px rgba(0,0,0,0.55);
+          opacity: 0;
+          transition: opacity 1s ease, transform 1s ease;
+          transform: translateY(10px);
+        }
+        .float-logo.visible {
+          opacity: 1;
+          transform: translateY(0px);
+        }
+        .float-logo.float-anim { animation: floatA 5s ease-in-out infinite; }
+        .float-logo.float-anim-b { animation: floatB 6s ease-in-out infinite; }
+        .float-logo.float-anim-c { animation: floatC 7s ease-in-out infinite; }
 
         @keyframes floatA {
           0%, 100% { transform: translateY(0px) rotate(-1.5deg); }
@@ -606,10 +618,6 @@
         @keyframes floatC {
           0%, 100% { transform: translateY(-5px) rotate(-1deg); }
           50%       { transform: translateY(7px) rotate(1deg); }
-        }
-        @keyframes floatCenter {
-          0%, 100% { transform: translate(-50%, -50%) rotate(-1deg) translateY(0px); }
-          50%       { transform: translate(-50%, -50%) rotate(1deg) translateY(-8px); }
         }
         /* Badge elegante en vez de rueda */
         .about-badge {
@@ -1266,7 +1274,7 @@
     <ul class="nav-links">
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#nosotros">Nosotros</a></li>
-        <li><a href="#portafolio">Portafolio</a></li>
+        <li><a href="#nosotros">Portafolio</a></li>
         <li><a href="#whatsapp-section">Contacto</a></li>
     </ul>
 </nav>
@@ -1283,7 +1291,7 @@
         Creamos identidades visuales únicas que conectan con las personas y elevan la presencia de tu marca al siguiente nivel.
     </p>
     <div class="hero-cta">
-        <a href="#portafolio" class="btn-primary">Ver portafolio</a>
+        <a href="#nosotros" class="btn-primary">Ver portafolio</a>
         <a href="#whatsapp-section" class="btn-ghost">Hablemos →</a>
     </div>
     <div class="scroll-hint">
@@ -1656,6 +1664,47 @@
 
     startAuto();
     window.addEventListener('resize', () => { goTo(0); });
+
+    // ── LOGO ROTATION (4 a la vez: 2 izq + 2 der) ──
+    const logos = document.querySelectorAll('.float-logo');
+    const anims = ['float-anim', 'float-anim-b', 'float-anim-c', 'float-anim'];
+
+    const positions = [
+      { top: '10%',  left: '4%',  right: 'auto' },
+      { top: '55%',  left: '4%',  right: 'auto' },
+      { top: '10%',  right: '4%', left: 'auto'  },
+      { top: '55%',  right: '4%', left: 'auto'  },
+    ];
+
+    const groups = [
+      [0, 1, 2, 3],
+      [4, 5, 0, 1],
+      [2, 3, 4, 5],
+      [1, 4, 3, 0],
+    ];
+
+    let currentGroup = 0;
+
+    function applyPosition(el, pos) {
+      el.style.top    = pos.top;
+      el.style.left   = pos.left  || 'auto';
+      el.style.right  = pos.right || 'auto';
+      el.style.bottom = 'auto';
+    }
+
+    function showGroup(idx) {
+      logos.forEach(l => l.classList.remove('visible', ...anims));
+      const group = groups[idx % groups.length];
+      group.forEach((logoIdx, posIdx) => {
+        const el = logos[logoIdx];
+        applyPosition(el, positions[posIdx]);
+        el.classList.add(anims[posIdx]);
+        setTimeout(() => el.classList.add('visible'), posIdx * 180);
+      });
+    }
+
+    showGroup(0);
+    setInterval(() => { currentGroup++; showGroup(currentGroup); }, 3500);
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
