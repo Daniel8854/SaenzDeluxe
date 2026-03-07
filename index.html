@@ -583,12 +583,7 @@
           object-fit: cover;
           display: block;
         }
-        .fl-1 { width: 43%; top: 12%;  left: 4%;  }
-        .fl-2 { width: 43%; top: 55%;  left: 4%;  }
-        .fl-3 { width: 43%; top: 12%;  right: 4%; }
-        .fl-4 { width: 43%; top: 55%;  right: 4%; }
-        .fl-5 { width: 43%; top: 12%;  left: 4%;  }
-        .fl-6 { width: 43%; top: 55%;  left: 4%;  }
+        .fl-1, .fl-2, .fl-3, .fl-4, .fl-5, .fl-6, .fl-7 { width: 43%; }
 
         .float-logo {
           position: absolute;
@@ -597,15 +592,22 @@
           box-shadow: 0 8px 28px rgba(0,0,0,0.55);
           opacity: 0;
           transition: opacity 1s ease, transform 1s ease;
-          transform: translateY(10px);
+          transform: scale(0.92);
+          pointer-events: none;
         }
         .float-logo.visible {
           opacity: 1;
-          transform: translateY(0px);
+          transform: scale(1);
+          pointer-events: auto;
         }
-        .float-logo.float-anim { animation: floatA 5s ease-in-out infinite; }
-        .float-logo.float-anim-b { animation: floatB 6s ease-in-out infinite; }
-        .float-logo.float-anim-c { animation: floatC 7s ease-in-out infinite; }
+        .float-logo img {
+          width: 100%; height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .float-logo.float-anim.visible  { animation: floatA 5s ease-in-out infinite; }
+        .float-logo.float-anim-b.visible { animation: floatB 6s ease-in-out infinite; }
+        .float-logo.float-anim-c.visible { animation: floatC 7s ease-in-out infinite; }
 
         @keyframes floatA {
           0%, 100% { transform: translateY(0px) rotate(-1.5deg); }
@@ -1645,19 +1647,17 @@
     window.addEventListener('resize', () => { goTo(0); });
 
     // ── LOGO ROTATION (4 aleatorios a la vez: 2 izq + 2 der) ──
-    const logos = document.querySelectorAll('.float-logo');
-    const anims = ['float-anim', 'float-anim-b', 'float-anim-c', 'float-anim-b'];
-    const total = logos.length; // 7
-
-    const positions = [
-      { top: '10%',  left: '4%',  right: 'auto' },
-      { top: '55%',  left: '4%',  right: 'auto' },
-      { top: '10%',  right: '4%', left: 'auto'  },
-      { top: '55%',  right: '4%', left: 'auto'  },
+    const logoEls = Array.from(document.querySelectorAll('.float-logo'));
+    const logoAnims = ['float-anim', 'float-anim-b', 'float-anim-c', 'float-anim-b'];
+    const logoPositions = [
+      { top: '8%',   left: '4%',  right: 'auto' },
+      { top: '54%',  left: '4%',  right: 'auto' },
+      { top: '8%',   right: '4%', left: 'auto'  },
+      { top: '54%',  right: '4%', left: 'auto'  },
     ];
 
     function getRandom4() {
-      const arr = Array.from({length: total}, (_, i) => i);
+      const arr = logoEls.map((_, i) => i);
       for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
@@ -1665,26 +1665,25 @@
       return arr.slice(0, 4);
     }
 
-    function applyPosition(el, pos) {
-      el.style.top    = pos.top;
-      el.style.left   = pos.left  || 'auto';
-      el.style.right  = pos.right || 'auto';
-      el.style.bottom = 'auto';
-    }
-
-    function showRandom() {
-      logos.forEach(l => l.classList.remove('visible', ...anims));
-      const group = getRandom4();
-      group.forEach((logoIdx, posIdx) => {
-        const el = logos[logoIdx];
-        applyPosition(el, positions[posIdx]);
-        el.classList.add(anims[posIdx]);
-        setTimeout(() => el.classList.add('visible'), posIdx * 180);
+    function showLogos() {
+      logoEls.forEach(l => {
+        l.classList.remove('visible', ...logoAnims);
+        l.style.top = l.style.left = l.style.right = l.style.bottom = '';
+      });
+      getRandom4().forEach((logoIdx, posIdx) => {
+        const el = logoEls[logoIdx];
+        const pos = logoPositions[posIdx];
+        el.style.top    = pos.top;
+        el.style.left   = pos.left;
+        el.style.right  = pos.right;
+        el.style.bottom = 'auto';
+        el.classList.add(logoAnims[posIdx]);
+        setTimeout(() => el.classList.add('visible'), posIdx * 200);
       });
     }
 
-    showRandom();
-    setInterval(showRandom, 3500);
+    showLogos();
+    setInterval(showLogos, 3800);
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
