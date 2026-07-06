@@ -44,5 +44,8 @@ document.querySelectorAll('.service-card').forEach(card => {
     observer.observe(card);
 });
 
+
+
+
 console.log("✅ Multiservicios JCD - Sitio cargado correctamente");
 
